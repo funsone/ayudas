@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :ayudas
+  resources :departamentos
   devise_for :users
   get 'home/index'
   root "home#index"

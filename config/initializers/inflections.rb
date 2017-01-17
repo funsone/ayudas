@@ -14,3 +14,14 @@
 # ActiveSupport::Inflector.inflections(:en) do |inflect|
 #   inflect.acronym 'RESTful'
 # end
+ActiveSupport::Inflector.inflections do |inflect|
+    inflect.irregular 'departamento', 'departamentos'
+    inflect.irregular 'ayuda', 'ayudas'
+    #inflect.irregular 'personal', 'personales'
+    #inflect.irregular 'error', 'errores'
+    #inflect.irregular 'historial', 'historiales'
+    #inflect.irregular 'conceptopersonal', 'conceptospersonales'
+    #inflect.irregular 'registroconcepto', 'registrosconceptos'
+    #inflect.irregular 'formula', 'formulas'
+    #inflect.irregular 'formulapersonal', 'formulaspersonales'
+end

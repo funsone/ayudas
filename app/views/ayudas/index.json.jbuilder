@@ -1,0 +1,1 @@
+json.array! @ayudas, partial: 'ayudas/ayuda', as: :ayuda

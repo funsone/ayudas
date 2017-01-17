@@ -1,0 +1,27 @@
+<%= form_for(ayuda) do |f| %>
+  <% if ayuda.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(ayuda.errors.count, "error") %> prohibited this ayuda from being saved:</h2>
+
+      <ul>
+      <% ayuda.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :nombre %>
+    <%= f.text_field :nombre %>
+  </div>
+
+  <div class="field">
+    <%= f.label :departamento_id %>
+    <%= f.text_field :departamento_id %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
