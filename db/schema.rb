@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170117193158) do
+ActiveRecord::Schema.define(version: 20170118171146) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,10 +23,50 @@ ActiveRecord::Schema.define(version: 20170117193158) do
     t.index ["departamento_id"], name: "index_ayudas_on_departamento_id", using: :btree
   end
 
+  create_table "beneficiarios", force: :cascade do |t|
+    t.integer  "tipo_cedula"
+    t.integer  "cedula"
+    t.string   "nombres"
+    t.string   "apellidos"
+    t.integer  "sexo"
+    t.date     "fecha_de_nacimiento"
+    t.integer  "oficio"
+    t.integer  "estado_civil"
+    t.integer  "tipo_de_casa"
+    t.integer  "num_habitaciones"
+    t.integer  "num_banos"
+    t.boolean  "enseres"
+    t.string   "obs_enseres"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+  end
+
   create_table "departamentos", force: :cascade do |t|
     t.string   "nombre"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "historiales", force: :cascade do |t|
+    t.integer  "solicitud_id"
+    t.integer  "beneficiario_id"
+    t.integer  "solicitante_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.index ["beneficiario_id"], name: "index_historiales_on_beneficiario_id", using: :btree
+    t.index ["solicitante_id"], name: "index_historiales_on_solicitante_id", using: :btree
+    t.index ["solicitud_id"], name: "index_historiales_on_solicitud_id", using: :btree
+  end
+
+  create_table "historials", force: :cascade do |t|
+    t.integer  "solicitud_id"
+    t.integer  "beneficiario_id"
+    t.integer  "solicitante_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.index ["beneficiario_id"], name: "index_historials_on_beneficiario_id", using: :btree
+    t.index ["solicitante_id"], name: "index_historials_on_solicitante_id", using: :btree
+    t.index ["solicitud_id"], name: "index_historials_on_solicitud_id", using: :btree
   end
 
   create_table "models", force: :cascade do |t|
@@ -46,6 +86,26 @@ ActiveRecord::Schema.define(version: 20170117193158) do
     t.index ["reset_password_token"], name: "index_models_on_reset_password_token", unique: true, using: :btree
   end
 
+  create_table "relaciones", force: :cascade do |t|
+    t.integer  "parentesco"
+    t.integer  "solicitante_id"
+    t.integer  "beneficiario_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.index ["beneficiario_id"], name: "index_relaciones_on_beneficiario_id", using: :btree
+    t.index ["solicitante_id"], name: "index_relaciones_on_solicitante_id", using: :btree
+  end
+
+  create_table "relacions", force: :cascade do |t|
+    t.integer  "parentesco"
+    t.integer  "solicitante_id"
+    t.integer  "beneficiario_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.index ["beneficiario_id"], name: "index_relacions_on_beneficiario_id", using: :btree
+    t.index ["solicitante_id"], name: "index_relacions_on_solicitante_id", using: :btree
+  end
+
   create_table "roles", force: :cascade do |t|
     t.string   "name"
     t.string   "resource_type"
@@ -54,6 +114,44 @@ ActiveRecord::Schema.define(version: 20170117193158) do
     t.datetime "updated_at"
     t.index ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id", using: :btree
     t.index ["name"], name: "index_roles_on_name", using: :btree
+  end
+
+  create_table "solicitantes", force: :cascade do |t|
+    t.integer  "cedula"
+    t.integer  "tipo_cedula"
+    t.string   "nombres"
+    t.string   "apellidos"
+    t.integer  "sexo"
+    t.date     "fecha_de_nacimiento"
+    t.string   "lugar_de_nacimiento"
+    t.string   "direccion"
+    t.integer  "municipios"
+    t.integer  "grado_de_instruccion"
+    t.string   "obs_instruccion"
+    t.integer  "oficio"
+    t.float    "ingreso_mensual"
+    t.string   "obs_ingreso"
+    t.string   "empresa"
+    t.integer  "carga_familiar"
+    t.string   "telefono_fijo"
+    t.string   "telefono_movil"
+    t.integer  "estado_civil"
+    t.string   "correo"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  create_table "solicitudes", force: :cascade do |t|
+    t.integer  "status"
+    t.text     "descripcion"
+    t.integer  "ayuda_id"
+    t.integer  "solicitante_id"
+    t.integer  "beneficiario_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.index ["ayuda_id"], name: "index_solicitudes_on_ayuda_id", using: :btree
+    t.index ["beneficiario_id"], name: "index_solicitudes_on_beneficiario_id", using: :btree
+    t.index ["solicitante_id"], name: "index_solicitudes_on_solicitante_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
@@ -80,4 +178,17 @@ ActiveRecord::Schema.define(version: 20170117193158) do
   end
 
   add_foreign_key "ayudas", "departamentos"
+  add_foreign_key "historiales", "beneficiarios"
+  add_foreign_key "historiales", "solicitantes"
+  add_foreign_key "historiales", "solicitudes"
+  add_foreign_key "historials", "beneficiarios"
+  add_foreign_key "historials", "solicitantes"
+  add_foreign_key "historials", "solicitudes"
+  add_foreign_key "relaciones", "beneficiarios"
+  add_foreign_key "relaciones", "solicitantes"
+  add_foreign_key "relacions", "beneficiarios"
+  add_foreign_key "relacions", "solicitantes"
+  add_foreign_key "solicitudes", "ayudas"
+  add_foreign_key "solicitudes", "beneficiarios"
+  add_foreign_key "solicitudes", "solicitantes"
 end

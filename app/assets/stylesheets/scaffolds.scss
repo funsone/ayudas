@@ -33,6 +33,14 @@ a {
   }
 }
 
+a.btn{
+  color: white;
+
+  &:visited{
+    color: white;
+  }
+}
+
 th {
   padding-bottom: 5px;
 }

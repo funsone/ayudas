@@ -1,3 +1,5 @@
 class Departamento < ApplicationRecord
-  validates :nombre, presence: true
+  resourcify
+  validates :nombre, presence: true, uniqueness: { case_sensitive: false }
+  has_many :ayudas ,  dependent: :destroy
 end

@@ -17,11 +17,10 @@
 ActiveSupport::Inflector.inflections do |inflect|
     inflect.irregular 'departamento', 'departamentos'
     inflect.irregular 'ayuda', 'ayudas'
-    #inflect.irregular 'personal', 'personales'
-    #inflect.irregular 'error', 'errores'
-    #inflect.irregular 'historial', 'historiales'
-    #inflect.irregular 'conceptopersonal', 'conceptospersonales'
-    #inflect.irregular 'registroconcepto', 'registrosconceptos'
-    #inflect.irregular 'formula', 'formulas'
+    inflect.irregular 'solicitante', 'solicitantes'
+    inflect.irregular 'beneficiario', 'beneficiarios'
+    inflect.irregular 'solicitud', 'solicitudes'
+    inflect.irregular 'relacion', 'relaciones'
+    inflect.irregular 'historial', 'historiales'
     #inflect.irregular 'formulapersonal', 'formulaspersonales'
 end

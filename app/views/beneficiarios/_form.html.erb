@@ -1,0 +1,23 @@
+<%= simple_form_for(@beneficiario) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :tipo_cedula %>
+    <%= f.input :cedula %>
+    <%= f.input :nombres %>
+    <%= f.input :apellidos %>
+    <%= f.input :sexo %>
+    <%= f.input :fecha_de_nacimiento %>
+    <%= f.input :oficio %>
+    <%= f.input :estado_civil %>
+    <%= f.input :tipo_de_casa %>
+    <%= f.input :num_habitaciones %>
+    <%= f.input :num_banos %>
+    <%= f.input :enseres %>
+    <%= f.input :obs_enseres %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

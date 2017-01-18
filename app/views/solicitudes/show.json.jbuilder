@@ -1,0 +1,1 @@
+json.partial! "solicitudes/solicitud", solicitud: @solicitud

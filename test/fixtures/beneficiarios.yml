@@ -1,0 +1,31 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  tipo_cedula: 1
+  cedula: 1
+  nombres: MyString
+  apellidos: MyString
+  sexo: 1
+  fecha_de_nacimiento: 2017-01-18
+  oficio: 1
+  estado_civil: 1
+  tipo_de_casa: 1
+  num_habitaciones: 1
+  num_banos: 1
+  enseres: false
+  obs_enseres: MyString
+
+two:
+  tipo_cedula: 1
+  cedula: 1
+  nombres: MyString
+  apellidos: MyString
+  sexo: 1
+  fecha_de_nacimiento: 2017-01-18
+  oficio: 1
+  estado_civil: 1
+  tipo_de_casa: 1
+  num_habitaciones: 1
+  num_banos: 1
+  enseres: false
+  obs_enseres: MyString

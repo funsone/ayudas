@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @solicitud.status %>
+</p>
+
+<p>
+  <strong>Descripcion:</strong>
+  <%= @solicitud.descripcion %>
+</p>
+
+<p>
+  <strong>Ayuda:</strong>
+  <%= @solicitud.ayuda %>
+</p>
+
+<p>
+  <strong>Solicitante:</strong>
+  <%= @solicitud.solicitante %>
+</p>
+
+<p>
+  <strong>Beneficiario:</strong>
+  <%= @solicitud.beneficiario %>
+</p>
+
+<%= link_to 'Edit', edit_solicitud_path(@solicitud) %> |
+<%= link_to 'Back', solicitudes_path %>

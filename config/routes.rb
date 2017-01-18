@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+  resources :solicitudes
+  resources :beneficiarios
+  resources :solicitantes
   resources :ayudas
   resources :departamentos
   devise_for :users

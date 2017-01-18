@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  parentesco: 1
+  solicitante: one
+  beneficiario: one
+
+two:
+  parentesco: 1
+  solicitante: two
+  beneficiario: two
