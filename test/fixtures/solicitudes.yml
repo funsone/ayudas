@@ -4,12 +4,10 @@ one:
   status: 1
   descripcion: MyText
   ayuda: one
-  solicitante: one
-  beneficiario: one
+  relacion: one
 
 two:
   status: 1
   descripcion: MyText
   ayuda: two
-  solicitante: two
-  beneficiario: two
+  relacion: two

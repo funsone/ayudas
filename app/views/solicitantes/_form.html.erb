@@ -1,30 +1,87 @@
-<%= simple_form_for(@solicitante) do |f| %>
-  <%= f.error_notification %>
+<%= simple_form_for(solicitante) do |f| %>
 
-  <div class="form-inputs">
-    <%= f.input :cedula %>
-    <%= f.input :tipo_cedula %>
-    <%= f.input :nombres %>
-    <%= f.input :apellidos %>
-    <%= f.input :sexo %>
-    <%= f.input :fecha_de_nacimiento %>
-    <%= f.input :lugar_de_nacimiento %>
-    <%= f.input :direccion %>
-    <%= f.input :municipios %>
-    <%= f.input :grado_de_instruccion %>
-    <%= f.input :obs_instruccion %>
-    <%= f.input :oficio %>
-    <%= f.input :ingreso_mensual %>
-    <%= f.input :obs_ingreso %>
-    <%= f.input :empresa %>
-    <%= f.input :carga_familiar %>
-    <%= f.input :telefono_fijo %>
-    <%= f.input :telefono_movil %>
-    <%= f.input :estado_civil %>
-    <%= f.input :correo %>
-  </div>
 
-  <div class="form-actions">
-    <%= f.button :submit %>
-  </div>
+<%= f.error_notification %>
+<ul class="list-group ">
+  <li class="list-group-item text-muted col-md-12" contenteditable="false"><i class="fa fa-database"></i> Datos<div class="pull-right text-warning">
+    <i class="fa fa-asterisk"></i> Campo Obligatorio
+      </div></li>
+  <li class="list-group-item col-md-12">
+
+    <div class="form-inputs">
+      <div class="col-md-4 <%='has-error' if @solicitante.errors.keys.include?(:cedula) ==true or @solicitante.errors.keys.include?(:tipo_de_cedula) ==true %> <%='has-success' if ((@solicitante.errors.keys.include?(:cedula) ==false and @solicitante.errors.keys.include?(:tipo_de_cedula) ==false) and @solicitante.errors.any?)%>">
+        <div class="form-group">
+          <%= f.label :cedula, class: "control-label"%>
+          <div class="input-group form-inline">
+            <span class="input-group-btn">
+              <%= f.select(:tipo_cedula , options_for_select($dic["tipo_de_cedula"],solicitante.tipo_cedula),{include_blank: ''}, class: "dropdown-toggle form-control", style: "padding:7px 12px;width:60px" )  %>
+            </span>
+              <%= f.input_field :cedula, label: false, class:"form-control" %>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 <%='has-error' if @solicitante.errors.keys.include?(:nombres) ==true %> <%='has-success' if (@solicitante.errors.keys.include?(:nombres) ==false and @solicitante.errors.any?)%>">
+        <%= f.input :nombres %>
+      </div>
+      <div class="col-md-4 <%='has-error' if @solicitante.errors.keys.include?(:apellidos) ==true %> <%='has-success' if (@solicitante.errors.keys.include?(:apellidos) ==false and @solicitante.errors.any?)%>">
+        <%= f.input :apellidos %>
+      </div>
+      <div class="col-md-4 <%='has-error' if @solicitante.errors.keys.include?(:sexo) ==true %> <%='has-success' if (@solicitante.errors.keys.include?(:sexo) ==false and @solicitante.errors.any?)%>">
+        <%= f.label :sexo %>
+        <%= f.select(:sexo , options_for_select($dic["sexo"],solicitante.sexo),{include_blank: 'Seleccione un sexo...'},class: "form-control")  %>
+      </div>
+      <div class="col-md-2 <%='has-error' if @solicitante.errors.keys.include?(:fecha_de_nacimiento) ==true %> <%='has-success' if (@solicitante.errors.keys.include?(:fecha_de_nacimiento) ==false and @solicitante.errors.any?)%>">
+        <%= f.input :fecha_de_nacimiento, as: :date, html5: true %>
+      </div>
+      <div class="col-md-2 <%='has-error' if @solicitante.errors.keys.include?(:lugar_de_nacimiento) ==true %> <%='has-success' if (@solicitante.errors.keys.include?(:lugar_de_nacimiento) ==false and @solicitante.errors.any?)%>">
+        <%= f.input :lugar_de_nacimiento %>
+      </div>
+      <div class="col-md-4 <%='has-error' if @solicitante.errors.keys.include?(:municipios) ==true %> <%='has-success' if (@solicitante.errors.keys.include?(:municipios) ==false and @solicitante.errors.any?)%>">
+        <%= f.label :municipios %>
+        <%= f.select(:municipios , options_for_select($dic["municipios"],solicitante.municipios),{include_blank: 'Seleccione un municipio...'},class: "form-control" )  %>
+      </div>
+      <div class="col-md-8 <%='has-error' if @solicitante.errors.keys.include?(:direccion) ==true %> <%='has-success' if (@solicitante.errors.keys.include?(:direccion) ==false and @solicitante.errors.any?)%>">
+        <%= f.input :direccion %>
+      </div>
+      <div class="col-md-2 <%='has-error' if @solicitante.errors.keys.include?(:grado_de_instruccion) ==true %> <%='has-success' if (@solicitante.errors.keys.include?(:grado_de_instruccion) ==false and @solicitante.errors.any?)%>">
+        <%= f.label :grado_de_instruccion %>
+        <%= f.select(:grado_de_instruccion , options_for_select($dic["grado"],solicitante.grado_de_instruccion),{include_blank: 'Seleccione grado de instrucción...'},class: "form-control" )  %>
+      </div>
+      <div class="col-md-2">
+        <%= f.input :obs_instruccion %>
+      </div>
+      <div class="col-md-4 <%='has-error' if @solicitante.errors.keys.include?(:estado_civil) ==true %> <%='has-success' if (@solicitante.errors.keys.include?(:estado_civil) ==false and @solicitante.errors.any?)%>">
+        <%= f.label :estado_civil %>
+        <%= f.select(:estado_civil , options_for_select($dic["estado"],solicitante.estado_civil),{include_blank: 'Seleccione el estado civil...'},class: "form-control" )  %>
+      </div>
+      <div class="col-md-4">
+        <%= f.input :correo %>
+      </div>
+      <div class="col-md-4">
+        <%= f.input :telefono_fijo %>
+      </div>
+      <div class="col-md-4">
+        <%= f.input :telefono_movil %>
+      </div>
+      <div class="col-md-4 <%='has-error' if @solicitante.errors.keys.include?(:oficio) ==true %> <%='has-success' if (@solicitante.errors.keys.include?(:oficio) ==false and @solicitante.errors.any?)%>">
+        <%= f.input :oficio %>
+      </div>
+      <div class="col-md-4">
+        <%= f.input :empresa %>
+      </div>
+      <div class="col-md-4 <%='has-error' if @solicitante.errors.keys.include?(:ingreso_mensual) ==true %> <%='has-success' if (@solicitante.errors.keys.include?(:ingreso_mensual) ==false and @solicitante.errors.any?)%>">
+        <%= f.input :ingreso_mensual %>
+      </div>
+      <div class="col-md-4">
+        <%= f.input :obs_ingreso %>
+      </div>
+      <div class="col-md-4 <%='has-error' if @solicitante.errors.keys.include?(:carga_familiar) ==true %> <%='has-success' if (@solicitante.errors.keys.include?(:carga_familiar) ==false and @solicitante.errors.any?)%>">
+        <%= f.input :carga_familiar %>
+      </div>
+    </div>
+   </li>
+  </ul>
+
+</br>
+<%= render 'layouts/botones', :f=>f, path: solicitantes_path%>
 <% end %>

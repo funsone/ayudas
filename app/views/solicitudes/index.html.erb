@@ -8,8 +8,7 @@
       <th>Status</th>
       <th>Descripcion</th>
       <th>Ayuda</th>
-      <th>Solicitante</th>
-      <th>Beneficiario</th>
+      <th>Relacion</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -20,8 +19,7 @@
         <td><%= solicitud.status %></td>
         <td><%= solicitud.descripcion %></td>
         <td><%= solicitud.ayuda %></td>
-        <td><%= solicitud.solicitante %></td>
-        <td><%= solicitud.beneficiario %></td>
+        <td><%= solicitud.relacion %></td>
         <td><%= link_to 'Show', solicitud %></td>
         <td><%= link_to 'Edit', edit_solicitud_path(solicitud) %></td>
         <td><%= link_to 'Destroy', solicitud, method: :delete, data: { confirm: 'Are you sure?' } %></td>

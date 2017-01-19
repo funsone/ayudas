@@ -1,22 +1,22 @@
-<%= form_for(departamento) do |f| %>
-  <% if departamento.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(departamento.errors.count, "error") %> prohibited this departamento from being saved:</h2>
+<%= simple_form_for(departamento) do |f| %>
 
-      <ul>
-      <% departamento.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
 
-  <div class="field">
-    <%= f.label :nombre %>
-    <%= f.text_field :nombre %>
+<%= f.error_notification %>
+<ul class="list-group ">
+      <li class="list-group-item text-muted col-md-12" contenteditable="false"><i class="fa fa-database"></i> Datos<div class="pull-right text-warning">
+         <i class="fa fa-asterisk"></i> Campo Obligatorio
+      </div></li>
+      <li class="list-group-item col-md-12">
+<div class="form-inputs">
+  <div class="col-md-12 <%='has-error' if @departamento.errors.keys.include?(:nombre) ==true %> <%='has-success' if (@departamento.errors.keys.include?(:nombre) ==false and @departamento.errors.any?)%>">
+          <%= f.input :nombre, input_html: { class: 'form-control' } %>
   </div>
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+
+</div>
+</li>
+</ul>
+</br>
+<%= render 'layouts/botones', :f=>f, path: departamentos_path%>
+
 <% end %>

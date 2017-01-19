@@ -1,65 +1,45 @@
-<p id="notice"><%= notice %></p>
+<div class="col-md-12 page-header">
+  <div class="pull-right">
 
-<h1>Solicitantes</h1>
+    <%= link_to raw('<i class="fa fa-plus"></i> Nuevo Solicitante'), new_solicitante_path,class:"btn btn-success" %>
+  </div>
+  <h1><i class="fa fa-users"></i> Solicitantes</h1>
+</div>
 
-<table>
+<ul class="list-group">
+      <li class="list-group-item text-muted col-md-12" contenteditable="false">Lista de solicitantes</li>
+      <li class="list-group-item col-md-12">
+
+<table class="table table-responsive table-hover table-condensed text-center " style="font-size:11px;">
   <thead>
     <tr>
-      <th>Cedula</th>
-      <th>Tipo cedula</th>
-      <th>Nombres</th>
-      <th>Apellidos</th>
-      <th>Sexo</th>
-      <th>Fecha de nacimiento</th>
-      <th>Lugar de nacimiento</th>
-      <th>Direccion</th>
-      <th>Municipios</th>
-      <th>Grado de instruccion</th>
-      <th>Obs instruccion</th>
-      <th>Oficio</th>
-      <th>Ingreso mensual</th>
-      <th>Obs ingreso</th>
-      <th>Empresa</th>
-      <th>Carga familiar</th>
-      <th>Telefono fijo</th>
-      <th>Telefono movil</th>
-      <th>Estado civil</th>
-      <th>Correo</th>
-      <th colspan="3"></th>
+      <th class="text-center">Cédula</th>
+      <th class="text-center">Nombres</th>
+      <th class="text-center">Apellidos</th>
+      <th class="text-center">Teléfono fijo</th>
+      <th class="text-center">Teléfono movil</th>
+      <th class="text-center">Correo</th>
+      <th class="text-center">N° de beneficiarios</th>
+      <th class="text-center">Acciones</th>
     </tr>
   </thead>
 
   <tbody>
     <% @solicitantes.each do |solicitante| %>
       <tr>
-        <td><%= solicitante.cedula %></td>
-        <td><%= solicitante.tipo_cedula %></td>
+        <td><%= $dic["tipo_de_cedula"].key(solicitante.tipo_cedula).to_s + "-" + solicitante.cedula.to_s %></td>
         <td><%= solicitante.nombres %></td>
         <td><%= solicitante.apellidos %></td>
-        <td><%= solicitante.sexo %></td>
-        <td><%= solicitante.fecha_de_nacimiento %></td>
-        <td><%= solicitante.lugar_de_nacimiento %></td>
-        <td><%= solicitante.direccion %></td>
-        <td><%= solicitante.municipios %></td>
-        <td><%= solicitante.grado_de_instruccion %></td>
-        <td><%= solicitante.obs_instruccion %></td>
-        <td><%= solicitante.oficio %></td>
-        <td><%= solicitante.ingreso_mensual %></td>
-        <td><%= solicitante.obs_ingreso %></td>
-        <td><%= solicitante.empresa %></td>
-        <td><%= solicitante.carga_familiar %></td>
         <td><%= solicitante.telefono_fijo %></td>
         <td><%= solicitante.telefono_movil %></td>
-        <td><%= solicitante.estado_civil %></td>
         <td><%= solicitante.correo %></td>
-        <td><%= link_to 'Show', solicitante %></td>
-        <td><%= link_to 'Edit', edit_solicitante_path(solicitante) %></td>
-        <td><%= link_to 'Destroy', solicitante, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= solicitante.correo %></td>
+        <td><%= link_to raw('<i class="fa fa-eye"></i>'), solicitante,class:"btn1 btn btn-success","data-toggle": "tooltip", "data-placement": "top", title: "Editar elemento" %>
+        <%= link_to raw('<i class="fa fa-pencil"></i>'), edit_solicitante_path(solicitante),class:"btn1 btn btn-info","data-toggle": "tooltip", "data-placement": "top", title: "Editar elemento" %>
+        <%= link_to raw('<i class="fa fa-trash"></i>'), solicitante, method: :delete, data: { confirm: 'Are you sure?' },class:"btn1 btn btn-danger","data-toggle": "tooltip", "data-placement": "top", title: "Editar elemento" %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
-
-<%= link_to 'New Solicitante', new_solicitante_path %>

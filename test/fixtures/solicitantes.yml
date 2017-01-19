@@ -6,7 +6,7 @@ one:
   nombres: MyString
   apellidos: MyString
   sexo: 1
-  fecha_de_nacimiento: 2017-01-18
+  fecha_de_nacimiento: 2017-01-19
   lugar_de_nacimiento: MyString
   direccion: MyString
   municipios: 1
@@ -28,7 +28,7 @@ two:
   nombres: MyString
   apellidos: MyString
   sexo: 1
-  fecha_de_nacimiento: 2017-01-18
+  fecha_de_nacimiento: 2017-01-19
   lugar_de_nacimiento: MyString
   direccion: MyString
   municipios: 1

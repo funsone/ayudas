@@ -1,27 +1,26 @@
-<%= form_for(ayuda) do |f| %>
-  <% if ayuda.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(ayuda.errors.count, "error") %> prohibited this ayuda from being saved:</h2>
+<%= simple_form_for(ayuda) do |f| %>
 
-      <ul>
-      <% ayuda.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
 
-  <div class="field">
-    <%= f.label :nombre %>
-    <%= f.text_field :nombre %>
+<%= f.error_notification %>
+<ul class="list-group ">
+      <li class="list-group-item text-muted col-md-12" contenteditable="false"><i class="fa fa-database"></i> Datos<div class="pull-right text-warning">
+         <i class="fa fa-asterisk"></i> Campo Obligatorio
+      </div></li>
+      <li class="list-group-item col-md-12">
+<div class="form-inputs">
+
+  <div class="col-md-6 <%='has-error' if @ayuda.errors.keys.include?(:nombre) ==true %> <%='has-success' if (@ayuda.errors.keys.include?(:nombre) ==false and @ayuda.errors.any?)%>">
+    <%= f.input :nombre, input_html: { class: 'form-control' } %>
   </div>
 
-  <div class="field">
-    <%= f.label :departamento_id %>
-    <%= f.text_field :departamento_id %>
+  <div class="col-md-6 <%='has-error' if @ayuda.errors.keys.include?(:departamento_id) ==true %> <%='has-success' if (@ayuda.errors.keys.include?(:departamento_id) ==false and @ayuda.errors.any?)%>">
+      <%= f.association :departamento, :label_method => lambda { |owner| "#{owner.nombre.capitalize}"},  :include_blank => "Seleccione un departamento...", input_html: { class: 'form-control' }  %>
   </div>
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+</li>
+</ul>
+  </br>
+  <%= render 'layouts/botones', :f=>f, path: ayudas_path%>
+
+</div>
 <% end %>

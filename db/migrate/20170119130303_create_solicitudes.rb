@@ -4,8 +4,7 @@ class CreateSolicitudes < ActiveRecord::Migration[5.0]
       t.integer :status
       t.text :descripcion
       t.references :ayuda, foreign_key: true
-      t.references :solicitante, foreign_key: true
-      t.references :beneficiario, foreign_key: true
+      t.references :relacion, foreign_key: true
 
       t.timestamps
     end
