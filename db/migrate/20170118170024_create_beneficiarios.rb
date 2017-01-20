@@ -14,6 +14,8 @@ class CreateBeneficiarios < ActiveRecord::Migration[5.0]
       t.integer :num_banos
       t.boolean :enseres
       t.string :obs_enseres
+      t.boolean :discapacidad
+      t.string :obs_discapacidad
 
       t.timestamps
     end

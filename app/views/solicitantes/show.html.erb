@@ -1,104 +1,147 @@
-<p id="notice"><%= notice %></p>
+<div class="col-md-12 page-header">
+  <div class="col-sm-10">
+    <h2><i class="fa fa-user" style="font-size:60px"></i><%= (+ "  " + @solicitante.nombres + " " + @solicitante.apellidos).upcase%></h2>
+  </div>
 
-<p>
-  <strong>Cedula:</strong>
-  <%= @solicitante.cedula %>
+</div>
+<br>
+  <div class="col-md-12">
+    <ul class="nav nav-pills nav-justified">
+      <li role="presentation"><%=link_to raw('<i class="fa fa-arrow-circle-left"></i> Regresar'), solicitantes_path%></li>
+      <li role="presentation"><%=link_to raw('<i class="fa fa-pencil"></i> Editar'), edit_solicitante_path(@solicitante)%></li>
+    </ul>
+  </div>
+
+<p class="col-md-12">
+  <br>
 </p>
+<div class="col-md-6">
+  <ul class="list-group">
+    <li class="list-group-item text-muted" contenteditable="false">
+      <i class="fa fa-user"></i> Perfil</li>
 
-<p>
-  <strong>Tipo cedula:</strong>
-  <%= @solicitante.tipo_cedula %>
-</p>
+    <li class="list-group-item text-right">
+      <span class="pull-left">
+        <strong class="">Cédula</strong>
+      </span>
+      <td><%= $dic["tipo_de_cedula"].key(@solicitante.tipo_cedula).to_s + "-" + @solicitante.cedula.to_s %></td>
+    </li>
 
-<p>
-  <strong>Nombres:</strong>
-  <%= @solicitante.nombres %>
-</p>
 
-<p>
-  <strong>Apellidos:</strong>
-  <%= @solicitante.apellidos %>
-</p>
+     <li class="list-group-item text-right">
+      <span class="pull-left">
+        <strong class="">Estado Civil</strong>
+      </span>
+      <%= $dic["estado"].key(@solicitante.estado_civil).to_s %>
+     </li>
 
-<p>
-  <strong>Sexo:</strong>
-  <%= @solicitante.sexo %>
-</p>
+     <li class="list-group-item text-right">
+      <span class="pull-left">
+        <strong class="">Sexo</strong>
+      </span>
+      <%= $dic["sexo"].key(@solicitante.sexo).to_s %>
+     </li>
 
-<p>
-  <strong>Fecha de nacimiento:</strong>
-  <%= @solicitante.fecha_de_nacimiento %>
-</p>
+     <li class="list-group-item text-right">
+      <span class="pull-left">
+        <strong class="">Fecha de Nacimiento</strong>
+      </span>
+      <%= @solicitante.fecha_de_nacimiento.to_s%>
+     </li>
 
-<p>
-  <strong>Lugar de nacimiento:</strong>
-  <%= @solicitante.lugar_de_nacimiento %>
-</p>
+     <li class="list-group-item text-right">
+      <span class="pull-left">
+        <strong class="">Lugar de Nacimiento</strong>
+      </span>
+      <%= @solicitante.lugar_de_nacimiento.capitalize %>
+     </li>
 
-<p>
-  <strong>Direccion:</strong>
-  <%= @solicitante.direccion %>
-</p>
+     <li class="list-group-item text-right">
+      <span class="pull-left">
+        <strong class="">Dirección</strong>
+      </span>
+      <%= @solicitante.direccion.capitalize %>
+     </li>
 
-<p>
-  <strong>Municipios:</strong>
-  <%= @solicitante.municipios %>
-</p>
+     <li class="list-group-item text-right">
+      <span class="pull-left">
+        <strong class="">Municipio</strong>
+      </span>
+      <%= $dic["municipios"].key(@solicitante.municipios).to_s %>
+     </li>
 
-<p>
-  <strong>Grado de instruccion:</strong>
-  <%= @solicitante.grado_de_instruccion %>
-</p>
+     <li class="list-group-item text-right">
+      <span class="pull-left">
+        <strong class="">Grado de Instrucción</strong>
+      </span>
+      <%= $dic["grado"].key(@solicitante.grado_de_instruccion).to_s %>
+     </li>
 
-<p>
-  <strong>Obs instruccion:</strong>
-  <%= @solicitante.obs_instruccion %>
-</p>
+     <li class="list-group-item text-right">
+      <span class="pull-left">
+        <strong class="">Observación</strong>
+      </span>
+      <%= @solicitante.obs_instruccion.capitalize %>
+      <br>
+     </li>
 
-<p>
-  <strong>Oficio:</strong>
-  <%= @solicitante.oficio %>
-</p>
+     <li class="list-group-item text-right">
+      <span class="pull-left">
+        <strong class="">Profesión/Oficio</strong>
+      </span>
+      <%= @solicitante.oficio %>
+     </li>
 
-<p>
-  <strong>Ingreso mensual:</strong>
-  <%= @solicitante.ingreso_mensual %>
-</p>
+     <li class="list-group-item text-right">
+      <span class="pull-left">
+        <strong class="">Ingreso Mensual</strong>
+      </span>
+      <%= @solicitante.ingreso_mensual.to_s %>
+     </li>
 
-<p>
-  <strong>Obs ingreso:</strong>
-  <%= @solicitante.obs_ingreso %>
-</p>
+     <li class="list-group-item text-right">
+      <span class="pull-left">
+        <strong class="">Observación</strong>
+      </span>
+      <%= @solicitante.obs_ingreso.capitalize %>
+      <br>
+     </li>
 
-<p>
-  <strong>Empresa:</strong>
-  <%= @solicitante.empresa %>
-</p>
+     <li class="list-group-item text-right">
+      <span class="pull-left">
+        <strong class="">Empresa</strong>
+      </span>
+      <%= @solicitante.empresa.capitalize %>
+     </li>
 
-<p>
-  <strong>Carga familiar:</strong>
-  <%= @solicitante.carga_familiar %>
-</p>
+     <li class="list-group-item text-right">
+      <span class="pull-left">
+        <strong class="">Carga Familiar</strong>
+      </span>
+      <%= @solicitante.carga_familiar.to_s %>
+     </li>
 
-<p>
-  <strong>Telefono fijo:</strong>
-  <%= @solicitante.telefono_fijo %>
-</p>
+     <li class="list-group-item text-right">
+      <span class="pull-left">
+        <strong class="">Teléfono Fijo</strong>
+      </span>
+      <%= @solicitante.telefono_fijo %>
+      <br>
+     </li>
 
-<p>
-  <strong>Telefono movil:</strong>
-  <%= @solicitante.telefono_movil %>
-</p>
+     <li class="list-group-item text-right">
+      <span class="pull-left">
+        <strong class="">Teléfono Móvil</strong>
+      </span>
+      <%= @solicitante.telefono_movil %>
+      <br>
+     </li>
 
-<p>
-  <strong>Estado civil:</strong>
-  <%= @solicitante.estado_civil %>
-</p>
-
-<p>
-  <strong>Correo:</strong>
-  <%= @solicitante.correo %>
-</p>
-
-<%= link_to 'Edit', edit_solicitante_path(@solicitante) %> |
-<%= link_to 'Back', solicitantes_path %>
+     <li class="list-group-item text-right">
+      <span class="pull-left">
+        <strong class="">Correo Electrónico</strong>
+      </span>
+      <%= @solicitante.correo %>
+      <br>
+     </li>
+</div>

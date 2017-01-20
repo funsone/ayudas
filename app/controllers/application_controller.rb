@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
+
   $dic = Hash['municipios' => Hash[
   'Antolín del Campo' => 0,
 'Arismendi' => 1,
@@ -56,7 +57,6 @@ class ApplicationController < ActionController::Base
 'Vecino(a)' => 7,
 'Hermano(a)' => 8,
 'Abuelo(a)' => 9,
-'Otros' => 10]
+'Otros' => 10]]
 
-]
 end
