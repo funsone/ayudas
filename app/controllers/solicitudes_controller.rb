@@ -4,16 +4,22 @@ class SolicitudesController < ApplicationController
   # GET /solicitudes
   # GET /solicitudes.json
   def index
-    @solicitudes = Solicitud.all
+    @solicitante=Solicitante.find(params[:solicitante_id])
+    @beneficiario=Beneficiario.find(params[:beneficiario_id])
+    @solicitudes = @solicitante.beneficiarios.solicitudes.all.paginate(:page => params[:page]).order('created_at DESC')
   end
 
   # GET /solicitudes/1
   # GET /solicitudes/1.json
   def show
+    @solicitante=Solicitante.find(params[:solicitante_id])
+    @beneficiario=Beneficiario.find(params[:beneficiario_id])
   end
 
   # GET /solicitudes/new
   def new
+    @solicitante=Solicitante.find(params[:solicitante_id])
+    @beneficiario=Beneficiario.find(params[:beneficiario_id])
     @solicitud = Solicitud.new
   end
 
@@ -24,12 +30,16 @@ class SolicitudesController < ApplicationController
   # POST /solicitudes
   # POST /solicitudes.json
   def create
-    @solicitud = Solicitud.new(solicitud_params)
+    @solicitante=Solicitante.find(params[:solicitante_id])
+    @beneficiario=Beneficiario.find(params[:beneficiario_id])
+    @solicitud = Solicitud.create(solicitud_params)
+    @solicitud.solicitante_id=@solicitante.id
+    @solicitud.beneficiario_id=@beneficiario.id
 
     respond_to do |format|
       if @solicitud.save
-        format.html { redirect_to @solicitud, notice: 'Solicitud was successfully created.' }
-        format.json { render :show, status: :created, location: @solicitud }
+        format.html { redirect_to solicitante_beneficiario_path(@solicitante, @beneficiario), notice: 'Solicitud was successfully created.' }
+        format.json { render :show, status: :created, location: solicitante_beneficiario_path(@solicitante, @beneficiario) }
       else
         format.html { render :new }
         format.json { render json: @solicitud.errors, status: :unprocessable_entity }
@@ -69,6 +79,6 @@ class SolicitudesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def solicitud_params
-      params.require(:solicitud).permit(:status, :descripcion, :ayuda_id, :relacion_id)
+      params.require(:solicitud).permit(:status, :descripcion, :ayuda_id, :beneficiario_id, :solicitante_id)
     end
 end

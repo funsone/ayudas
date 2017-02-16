@@ -1,33 +1,19 @@
 en:
   simple_form:
-    "yes": 'Si'
+    "yes": 'Yes'
     "no": 'No'
     required:
-      text: 'Requerido'
+      text: 'required'
       mark: '*'
       # You can uncomment the line below if you need to overwrite the whole required html.
       # When using html, text and mark won't be used.
       # html: '<abbr title="required">*</abbr>'
     error_notification:
-      default_message: "Por favor revise los siguientes problemas:"
+      default_message: "Please review the problems below:"
     # Examples
-    labels:
-      solicitante:
-        fecha_de_nacimiento: 'Fecha de Nacimiento'
-        cedula: 'Cédula'
-        lugar_de_nacimiento: 'Lugar de Nacimiento'
-        municipios: 'Municipio'
-        grado_de_instruccion: 'Grado de Instrucción'
-        obs_instruccion: 'Observación'
-        oficio: 'Profesión u Oficio'
-        ingreso_mensual: 'Ingreso Mensual'
-        obs_ingreso: 'Observación de Ingreso'
-        carga_familiar: 'Carga Familiar'
-        telefono_fijo: 'Teléfono Fijo'
-        telefono_movil: 'Teléfono Móvil'
-        estado_civil: 'Estado Civil'
-        correo: 'Correo Electrónico'
-        direccion: 'Dirección'
+    # labels:
+    #   defaults:
+    #     password: 'Password'
     #   user:
     #     new:
     #       email: 'E-mail to sign in.'

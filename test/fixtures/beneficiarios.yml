@@ -6,7 +6,7 @@ one:
   nombres: MyString
   apellidos: MyString
   sexo: 1
-  fecha_de_nacimiento: 2017-01-18
+  fecha_de_nacimiento: 2017-02-09
   oficio: 1
   estado_civil: 1
   tipo_de_casa: 1
@@ -14,6 +14,8 @@ one:
   num_banos: 1
   enseres: false
   obs_enseres: MyString
+  discapacidad: false
+  obs_discapacidad: MyString
 
 two:
   tipo_cedula: 1
@@ -21,7 +23,7 @@ two:
   nombres: MyString
   apellidos: MyString
   sexo: 1
-  fecha_de_nacimiento: 2017-01-18
+  fecha_de_nacimiento: 2017-02-09
   oficio: 1
   estado_civil: 1
   tipo_de_casa: 1
@@ -29,3 +31,5 @@ two:
   num_banos: 1
   enseres: false
   obs_enseres: MyString
+  discapacidad: false
+  obs_discapacidad: MyString

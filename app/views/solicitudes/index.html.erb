@@ -1,28 +1,37 @@
-<p id="notice"><%= notice %></p>
+<div class="col-md-12 page-header">
+  <div class="pull-right">
 
-<h1>Solicitudes</h1>
+    <%= link_to raw('<i class="fa fa-plus"></i> Nueva Solicitud'), new_solicitud_path,class:"btn btn-success" %>
+  </div>
+  <h1><i class="fa fa-paper-plane"></i> Solicitudes</h1>
+</div>
 
-<table>
+<ul class="list-group">
+      <li class="list-group-item text-muted col-md-12" contenteditable="false">Lista de solicitudes</li>
+      <li class="list-group-item col-md-12">
+
+<table class="table table-responsive table-hover table-condensed text-center " style="font-size:11px;">
   <thead>
     <tr>
-      <th>Status</th>
-      <th>Descripcion</th>
-      <th>Ayuda</th>
-      <th>Relacion</th>
-      <th colspan="3"></th>
+      <th class="text-center">Estatus</th>
+      <th class="text-center">Solicitante</th>
+      <th class="text-center">Beneficiario</th>
+      <th class="text-center">Ayuda</th>
+      <th width="200px" class="text-center">Acciones</th>
     </tr>
   </thead>
 
   <tbody>
     <% @solicitudes.each do |solicitud| %>
       <tr>
-        <td><%= solicitud.status %></td>
-        <td><%= solicitud.descripcion %></td>
-        <td><%= solicitud.ayuda %></td>
-        <td><%= solicitud.relacion %></td>
-        <td><%= link_to 'Show', solicitud %></td>
-        <td><%= link_to 'Edit', edit_solicitud_path(solicitud) %></td>
-        <td><%= link_to 'Destroy', solicitud, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= $dic["status"].key(solicitud.status).to_s%></td>
+        <td><%= solicitud.solicitante.nombres+" "+solicitud.solicitante.apellidos %></td>
+        <td><%= solicitud.beneficiario.nombres+" "+solicitud.beneficiario.apellidos %></td>
+        <td><%= solicitud.ayuda.nombre %></td>
+        <td><%= link_to 'Show', solicitud %>
+          <%= link_to 'Edit', edit_solicitud_path(solicitud) %>
+          <%= link_to 'Destroy', solicitud, method: :delete, data: { confirm: 'Are you sure?' } %>
+        </td>
       </tr>
     <% end %>
   </tbody>

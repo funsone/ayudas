@@ -1,1 +1,43 @@
-<h2> Página de Incio </h2>
+<div class="col-md-12">
+<div class="text-center col-md-12 page-header"></br>
+  <div class="col-md-2">
+    <%= image_tag "heart.png",width: "50%"%>
+  </div>
+  <h2 class="text-center col-md-8">Registro de Ayudas Sociales</br> <small>Fundación Social Nueva Esparta</small></h2>
+</div>
+
+
+
+<div class="col-md-12" id="personas">
+  <%=render "visitas"%>
+</div>
+
+</div>
+
+<script>
+             var classes = ".solicitante";
+             var delay = (function () {
+               var timer = 0;
+               return function (callback, ms) {
+                 clearTimeout(timer);
+                 timer = setTimeout(callback, ms);
+               };
+             })();
+             function loading() {
+               $("#search_icon").attr("class", "fa fa-refresh fa-spin fa-fw")
+             }
+             function query() {
+               loading();
+               return "/home/index?search=" + $("#search").val();
+             }
+             $(function () {
+
+               $("#search").keyup(function () {
+                 delay(function () {
+                   $.getScript(query());
+                   return false;
+                 }, 500);
+               });
+
+             });
+           </script>

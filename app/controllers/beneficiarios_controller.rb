@@ -4,32 +4,43 @@ class BeneficiariosController < ApplicationController
   # GET /beneficiarios
   # GET /beneficiarios.json
   def index
-    @beneficiarios = Beneficiario.all
+    @solicitante=Solicitante.find(params[:solicitante_id])
+    @beneficiarios = @solicitante.beneficiarios.all.paginate(:page => params[:page]).order('created_at DESC')
   end
 
   # GET /beneficiarios/1
   # GET /beneficiarios/1.json
   def show
+    @solicitante= Solicitante.find(params[:solicitante_id])
   end
 
   # GET /beneficiarios/new
   def new
-    @beneficiario = Beneficiario.new
+    @solicitante= Solicitante.find(params[:solicitante_id])
+    @beneficiario = @solicitante.beneficiarios.new
+    respond_to do |format|
+      format.html
+      format.xml  { render :xml => @beneficiario }
+    end
   end
 
   # GET /beneficiarios/1/edit
   def edit
+    @solicitante= Solicitante.find(params[:solicitante_id])
   end
 
   # POST /beneficiarios
   # POST /beneficiarios.json
   def create
-    @beneficiario = Beneficiario.new(beneficiario_params)
+    solicitante=Solicitante.find(params[:solicitante_id])
+    @beneficiario = Beneficiario.create(beneficiario_params)
+    beneficiario=beneficiario.historial_params
+    @beneficiario.historiales.build(parentesco: beneficiario[:parentesco], solicitante_id: solicitante.id)
 
     respond_to do |format|
       if @beneficiario.save
-        format.html { redirect_to @beneficiario, notice: 'Beneficiario was successfully created.' }
-        format.json { render :show, status: :created, location: @beneficiario }
+        format.html { redirect_to solicitante_path(solicitante), notice: 'Beneficiario creado exitosamente.' }
+        format.json { render :show, status: :created, location: solicitante_path(solicitante) }
       else
         format.html { render :new }
         format.json { render json: @beneficiario.errors, status: :unprocessable_entity }
@@ -40,10 +51,12 @@ class BeneficiariosController < ApplicationController
   # PATCH/PUT /beneficiarios/1
   # PATCH/PUT /beneficiarios/1.json
   def update
+    @solicitante= Solicitante.find(params[:solicitante_id])
+
     respond_to do |format|
       if @beneficiario.update(beneficiario_params)
-        format.html { redirect_to @beneficiario, notice: 'Beneficiario was successfully updated.' }
-        format.json { render :show, status: :ok, location: @beneficiario }
+        format.html { redirect_to solicitante_beneficiario_path(@solicitante, @beneficiario), notice: 'Beneficiario actualizado exitosamente.' }
+        format.json { render :show, status: :ok, location: solicitante_beneficiario_path(@solicitante, @beneficiario) }
       else
         format.html { render :edit }
         format.json { render json: @beneficiario.errors, status: :unprocessable_entity }
@@ -69,6 +82,6 @@ class BeneficiariosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def beneficiario_params
-      params.require(:beneficiario).permit(:tipo_cedula, :cedula, :nombres, :apellidos, :sexo, :fecha_de_nacimiento, :oficio, :estado_civil, :tipo_de_casa, :num_habitaciones, :num_banos, :enseres, :obs_enseres)
+      params.require(:beneficiario).permit(:tipo_cedula, :cedula, :nombres, :apellidos, :sexo, :fecha_de_nacimiento, :oficio, :estado_civil, :tipo_de_casa, :num_habitaciones, :num_banos, :enseres, :obs_enseres, :discapacidad, :obs_discapacidad,:historial_attributes => [:parentesco])
     end
 end

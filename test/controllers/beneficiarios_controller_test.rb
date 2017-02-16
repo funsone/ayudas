@@ -17,7 +17,7 @@ class BeneficiariosControllerTest < ActionDispatch::IntegrationTest
 
   test "should create beneficiario" do
     assert_difference('Beneficiario.count') do
-      post beneficiarios_url, params: { beneficiario: { apellidos: @beneficiario.apellidos, cedula: @beneficiario.cedula, enseres: @beneficiario.enseres, estado_civil: @beneficiario.estado_civil, fecha_de_nacimiento: @beneficiario.fecha_de_nacimiento, nombres: @beneficiario.nombres, num_banos: @beneficiario.num_banos, num_habitaciones: @beneficiario.num_habitaciones, obs_enseres: @beneficiario.obs_enseres, oficio: @beneficiario.oficio, sexo: @beneficiario.sexo, tipo_cedula: @beneficiario.tipo_cedula, tipo_de_casa: @beneficiario.tipo_de_casa } }
+      post beneficiarios_url, params: { beneficiario: { apellidos: @beneficiario.apellidos, cedula: @beneficiario.cedula, discapacidad: @beneficiario.discapacidad, enseres: @beneficiario.enseres, estado_civil: @beneficiario.estado_civil, fecha_de_nacimiento: @beneficiario.fecha_de_nacimiento, nombres: @beneficiario.nombres, num_banos: @beneficiario.num_banos, num_habitaciones: @beneficiario.num_habitaciones, obs_discapacidad: @beneficiario.obs_discapacidad, obs_enseres: @beneficiario.obs_enseres, oficio: @beneficiario.oficio, sexo: @beneficiario.sexo, tipo_cedula: @beneficiario.tipo_cedula, tipo_de_casa: @beneficiario.tipo_de_casa } }
     end
 
     assert_redirected_to beneficiario_url(Beneficiario.last)
@@ -34,7 +34,7 @@ class BeneficiariosControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update beneficiario" do
-    patch beneficiario_url(@beneficiario), params: { beneficiario: { apellidos: @beneficiario.apellidos, cedula: @beneficiario.cedula, enseres: @beneficiario.enseres, estado_civil: @beneficiario.estado_civil, fecha_de_nacimiento: @beneficiario.fecha_de_nacimiento, nombres: @beneficiario.nombres, num_banos: @beneficiario.num_banos, num_habitaciones: @beneficiario.num_habitaciones, obs_enseres: @beneficiario.obs_enseres, oficio: @beneficiario.oficio, sexo: @beneficiario.sexo, tipo_cedula: @beneficiario.tipo_cedula, tipo_de_casa: @beneficiario.tipo_de_casa } }
+    patch beneficiario_url(@beneficiario), params: { beneficiario: { apellidos: @beneficiario.apellidos, cedula: @beneficiario.cedula, discapacidad: @beneficiario.discapacidad, enseres: @beneficiario.enseres, estado_civil: @beneficiario.estado_civil, fecha_de_nacimiento: @beneficiario.fecha_de_nacimiento, nombres: @beneficiario.nombres, num_banos: @beneficiario.num_banos, num_habitaciones: @beneficiario.num_habitaciones, obs_discapacidad: @beneficiario.obs_discapacidad, obs_enseres: @beneficiario.obs_enseres, oficio: @beneficiario.oficio, sexo: @beneficiario.sexo, tipo_cedula: @beneficiario.tipo_cedula, tipo_de_casa: @beneficiario.tipo_de_casa } }
     assert_redirected_to beneficiario_url(@beneficiario)
   end
 

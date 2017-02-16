@@ -1,2 +1,2 @@
-json.extract! beneficiario, :id, :tipo_cedula, :cedula, :nombres, :apellidos, :sexo, :fecha_de_nacimiento, :oficio, :estado_civil, :tipo_de_casa, :num_habitaciones, :num_banos, :enseres, :obs_enseres, :created_at, :updated_at
+json.extract! beneficiario, :id, :tipo_cedula, :cedula, :nombres, :apellidos, :sexo, :fecha_de_nacimiento, :oficio, :estado_civil, :tipo_de_casa, :num_habitaciones, :num_banos, :enseres, :obs_enseres, :discapacidad, :obs_discapacidad, :created_at, :updated_at
 json.url beneficiario_url(beneficiario, format: :json)

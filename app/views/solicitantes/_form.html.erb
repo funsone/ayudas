@@ -1,4 +1,4 @@
-<%= simple_form_for(solicitante) do |f| %>
+<%= simple_form_for(@solicitante) do |f| %>
 
 
 <%= f.error_notification %>
@@ -14,7 +14,9 @@
           <%= f.label :cedula, class: "control-label"%>
           <div class="input-group form-inline">
             <span class="input-group-btn">
-              <%= f.select(:tipo_cedula , options_for_select($dic["tipo_de_cedula"],solicitante.tipo_cedula),{include_blank: ''}, class: "dropdown-toggle form-control", style: "padding:7px 12px;width:60px" )  %>
+              <%  d =(Solicitante._attr_readonly.include?("tipo_de_cedula") and f.object.id.nil? == false) ? "disabled" : " "%>
+              <%= f.input :tipo_cedula, collection: $dic["tipo_de_cedula"], class: 'tipo_cedula btn btn-default dropdown-toggle form-control' %>
+
             </span>
               <%= f.input_field :cedula, label: false, class:"form-control" %>
           </div>
@@ -27,8 +29,7 @@
         <%= f.input :apellidos %>
       </div>
       <div class="col-md-4 <%='has-error' if @solicitante.errors.keys.include?(:sexo) ==true %> <%='has-success' if (@solicitante.errors.keys.include?(:sexo) ==false and @solicitante.errors.any?)%>">
-        <%= f.label :sexo %>
-        <%= f.select(:sexo , options_for_select($dic["sexo"],solicitante.sexo),{include_blank: 'Seleccione un sexo...'},class: "form-control")  %>
+        <%= f.input :sexo, collection: $dic["sexo"], include_blank: 'Seleccione un sexo...', class: "form-control"  %>
       </div>
       <div class="col-md-2 <%='has-error' if @solicitante.errors.keys.include?(:fecha_de_nacimiento) ==true %> <%='has-success' if (@solicitante.errors.keys.include?(:fecha_de_nacimiento) ==false and @solicitante.errors.any?)%>">
         <%= f.input :fecha_de_nacimiento, as: :date, html5: true %>
@@ -37,22 +38,19 @@
         <%= f.input :lugar_de_nacimiento %>
       </div>
       <div class="col-md-4 <%='has-error' if @solicitante.errors.keys.include?(:municipios) ==true %> <%='has-success' if (@solicitante.errors.keys.include?(:municipios) ==false and @solicitante.errors.any?)%>">
-        <%= f.label :municipios %>
-        <%= f.select(:municipios , options_for_select($dic["municipios"],solicitante.municipios),{include_blank: 'Seleccione un municipio...'},class: "form-control" )  %>
+        <%= f.input :municipios, collection: $dic["municipios"], include_blank: 'Seleccione un municipio...', class: "form-control"  %>
       </div>
       <div class="col-md-8 <%='has-error' if @solicitante.errors.keys.include?(:direccion) ==true %> <%='has-success' if (@solicitante.errors.keys.include?(:direccion) ==false and @solicitante.errors.any?)%>">
         <%= f.input :direccion %>
       </div>
       <div class="col-md-2 <%='has-error' if @solicitante.errors.keys.include?(:grado_de_instruccion) ==true %> <%='has-success' if (@solicitante.errors.keys.include?(:grado_de_instruccion) ==false and @solicitante.errors.any?)%>">
-        <%= f.label :grado_de_instruccion %>
-        <%= f.select(:grado_de_instruccion , options_for_select($dic["grado"],solicitante.grado_de_instruccion),{include_blank: 'Seleccione grado de instrucción...'},class: "form-control" )  %>
+        <%= f.input :grado_de_instruccion, collection: $dic["grado"], include_blank: 'Seleccione un grado de instrucción...', class: "form-control"  %>
       </div>
       <div class="col-md-2">
         <%= f.input :obs_instruccion %>
       </div>
       <div class="col-md-4 <%='has-error' if @solicitante.errors.keys.include?(:estado_civil) ==true %> <%='has-success' if (@solicitante.errors.keys.include?(:estado_civil) ==false and @solicitante.errors.any?)%>">
-        <%= f.label :estado_civil %>
-        <%= f.select(:estado_civil , options_for_select($dic["estado"],solicitante.estado_civil),{include_blank: 'Seleccione el estado civil...'},class: "form-control" )  %>
+        <%= f.input :estado_civil, collection: $dic["estado"], include_blank: 'Seleccione un estado...', class: "form-control"  %>
       </div>
       <div class="col-md-4">
         <%= f.input :correo %>

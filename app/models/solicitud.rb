@@ -1,4 +1,6 @@
 class Solicitud < ApplicationRecord
   belongs_to :ayuda
-  belongs_to :relacion
+  belongs_to :beneficiario
+  belongs_to :solicitante
+
 end

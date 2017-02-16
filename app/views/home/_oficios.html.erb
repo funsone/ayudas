@@ -1,0 +1,48 @@
+<ul class="list-group">
+      <li class="list-group-item text-muted" contenteditable="false"><i class="fa fa-file-o"></i> Lista de oficios</li>
+      <li class="list-group-item ">
+      <%
+
+      p=@oficios
+      if p.length>0%>
+      <div class="table-responsive">
+
+        <table class="table table-responsive table-hover table-condensed" style="font-size:11px;">
+                  <thead>
+                      <tr>
+                          <th class="text-center" style="width:15%">Institucion</th>
+                          <th class="text-center">Descripcion</th>
+                          <th class="text-center" style="width:10%">Fecha de emision</th>
+                          <th class="text-center" style="width:10%">Fecha de entrega</th>
+                          <th class="text-center" style="width:10%">Hora</th>
+                      </tr>
+                  </thead>
+
+                  <tbody>
+                      <% p.each do |oficio| %>
+                      <tr>
+                          <td style="width:15%"><%= oficio.institucion.upcase%></td>
+                          <td><%= oficio.descripcion%></td>
+                          <td class="text-center" style="width:10%"><%= oficio.fecha_de_emision.strftime("%d-%m-%Y")  %>
+                          </td>
+                          <td class="text-center" style="width:10%"><%= oficio.created_at.strftime("%d-%m-%Y") %>
+                          </td>
+                          <td class="text-center" style="width:10%"><%=  oficio.created_at.strftime("%H:%M") %></td>
+                      </tr>
+                      <%end%>
+                  </tbody>
+              </table>
+        <div class="col-md-12 text-center">
+          <%= will_paginate  p, renderer: BootstrapPagination::Rails, param_name: "page2"%>
+        </div>
+      </div>
+
+      <%else%>
+      <div class="text-center">
+        <h4>"No hay oficios"</h4>
+
+      </div>
+      <%end%>
+
+      </li>
+    </ul>

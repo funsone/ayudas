@@ -17,7 +17,7 @@ class SolicitudesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create solicitud" do
     assert_difference('Solicitud.count') do
-      post solicitudes_url, params: { solicitud: { ayuda_id: @solicitud.ayuda_id, descripcion: @solicitud.descripcion, relacion_id: @solicitud.relacion_id, status: @solicitud.status } }
+      post solicitudes_url, params: { solicitud: { ayuda_id: @solicitud.ayuda_id, beneficiario_id: @solicitud.beneficiario_id, descripcion: @solicitud.descripcion, solicitante_id: @solicitud.solicitante_id, status: @solicitud.status } }
     end
 
     assert_redirected_to solicitud_url(Solicitud.last)
@@ -34,7 +34,7 @@ class SolicitudesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update solicitud" do
-    patch solicitud_url(@solicitud), params: { solicitud: { ayuda_id: @solicitud.ayuda_id, descripcion: @solicitud.descripcion, relacion_id: @solicitud.relacion_id, status: @solicitud.status } }
+    patch solicitud_url(@solicitud), params: { solicitud: { ayuda_id: @solicitud.ayuda_id, beneficiario_id: @solicitud.beneficiario_id, descripcion: @solicitud.descripcion, solicitante_id: @solicitud.solicitante_id, status: @solicitud.status } }
     assert_redirected_to solicitud_url(@solicitud)
   end
 

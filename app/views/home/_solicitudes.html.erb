@@ -1,0 +1,56 @@
+<ul class="list-group">
+      <li class="list-group-item text-muted" contenteditable="false"><i class="fa fa-hand-o-right"></i> Lista de solictudes</li>
+      <li class="list-group-item ">
+      <%
+
+      p=@solicituds
+      if p.length>0%>
+      <div class="table-responsive">
+
+        <table class="table table-responsive table-hover table-condensed" style="font-size:11px;">
+          <thead>
+            <tr>
+
+              <th class="text-center" style="width:10%">Cédula</th>
+              <th class="text-center" style="width:35%">Nombre Completo</th>
+                <th class="text-center">Ayuda</th>
+              <th class="text-center" style="width:10%">Fecha</th>
+              <th class="text-center" style="width:10%">Hora</th>
+              <th class="text-center" style="width:10%">Status</th>
+
+            </tr>
+          </thead>
+
+          <tbody>
+            <% p.each do |persona| %>
+            <%if persona.status==1%>
+            <tr class="danger">
+<%else%>
+<tr class="success">
+<%end%>
+
+
+              <td style="width:10%"><%= $dic["tipo_de_cedula"].key(persona.persona.tipo_de_cedula)+ "-" +persona.persona.cedula.to_s%></td>
+              <td class="text-center text-capitalize" style="width:35%"><%= persona.persona.nombres.downcase+" "+persona.persona.apellidos.downcase %></td>
+                <td><%= persona.ayuda.nombre%></td>
+              <td class="text-center" style="width:10%"><%= persona.created_at.strftime("%d-%m-%Y") %> </td>
+              <td class="text-center" style="width:10%"><%=  persona.created_at.strftime("%H:%M") %></td>
+              <td class="text-center" style="width:10%"><%=  $dic["status"].key(persona.status)%></td>
+      </tr>
+            <%end%>
+          </tbody>
+        </table>
+        <div class="col-md-12 text-center">
+          <%= will_paginate  p, renderer: BootstrapPagination::Rails%>
+        </div>
+      </div>
+
+      <%else%>
+      <div class="text-center">
+        <h4>"No hay Solicitudes"</h4>
+
+      </div>
+      <%end%>
+
+      </li>
+    </ul>

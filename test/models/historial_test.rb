@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class RelacionTest < ActiveSupport::TestCase
+class HistorialTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

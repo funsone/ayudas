@@ -1,4 +1,4 @@
-<%= simple_form_for(@beneficiario) do |f| %>
+<%= simple_form_for([@solicitante, @beneficiario]) do |f| %>
   <%= f.error_notification %>
 
   <div class="form-inputs">
@@ -15,6 +15,11 @@
     <%= f.input :num_banos %>
     <%= f.input :enseres %>
     <%= f.input :obs_enseres %>
+    <%= f.input :discapacidad %>
+    <%= f.input :obs_discapacidad %>
+    <%= f.simple_fields_for :historial do |p| %>
+      <%= p.input :parentesco %>
+    <% end %>
   </div>
 
   <div class="form-actions">

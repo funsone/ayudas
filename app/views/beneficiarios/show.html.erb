@@ -1,69 +1,158 @@
-<p id="notice"><%= notice %></p>
+<%solicitante= Solicitante.find(params[:solicitante_id])%>
+<div class="col-md-12 page-header">
+  <div class="col-sm-10">
+    <h2><i class="fa fa-user" style="font-size:60px"></i><%= (+ "  " + @beneficiario.nombres + " " + @beneficiario.apellidos).upcase%></h2>
+  </div>
 
-<p>
-  <strong>Tipo cedula:</strong>
-  <%= @beneficiario.tipo_cedula %>
+</div>
+<br>
+  <div class="col-md-12">
+    <ul class="nav nav-pills nav-justified">
+      <li role="presentation"><%=link_to raw('<i class="fa fa-arrow-circle-left"></i> Regresar'), beneficiarios_path%></li>
+      <li role="presentation"><%=link_to raw('<i class="fa fa-pencil"></i> Editar'), edit_beneficiario_path(@beneficiario)%></li>
+      <li role="presentation"><%=link_to raw('<i class="fa fa-plus"></i> Nuevo Beneficiario'), new_solicitante_beneficiario_path(@beneficiario)%></li>
+      <li role="presentation"><%=link_to raw('<i class="fa fa-plus"></i> Nueva solicitud'), new_solicitante_beneficiario_solicitud_path(@solicitante, @beneficiario)%></li>
+    </ul>
+  </div>
+
+<p class="col-md-12">
+  <br>
 </p>
+<div class="col-md-6">
+  <ul class="list-group">
 
-<p>
-  <strong>Cedula:</strong>
-  <%= @beneficiario.cedula %>
-</p>
+    <li class="list-group-item text-muted" contenteditable="false">
+      <i class="fa fa-user"></i> Perfil</li>
 
-<p>
-  <strong>Nombres:</strong>
-  <%= @beneficiario.nombres %>
-</p>
+    <li class="list-group-item text-right">
+      <span class="pull-left">
+        <strong class="">Cédula</strong>
+      </span>
+      <td><%= $dic["tipo_de_cedula"].key(@beneficiario.tipo_cedula).to_s + "-" + @beneficiario.cedula.to_s %></td>
+    </li>
 
-<p>
-  <strong>Apellidos:</strong>
-  <%= @beneficiario.apellidos %>
-</p>
+    <li class="list-group-item text-right">
+     <span class="pull-left">
+       <strong class="">Sexo</strong>
+     </span>
+     <%= $dic["sexo"].key(@beneficiario.sexo).to_s %>
+   </li>
 
-<p>
-  <strong>Sexo:</strong>
-  <%= @beneficiario.sexo %>
-</p>
+    <li class="list-group-item text-right">
+     <span class="pull-left">
+       <strong class="">Fecha de Nacimiento</strong>
+     </span>
+     <%= @beneficiario.fecha_de_nacimiento.to_s%>
+    </li>
 
-<p>
-  <strong>Fecha de nacimiento:</strong>
-  <%= @beneficiario.fecha_de_nacimiento %>
-</p>
+    <li class="list-group-item text-right">
+     <span class="pull-left">
+       <strong class="">Estado Civil</strong>
+     </span>
+     <%= $dic["estado"].key(@beneficiario.estado_civil).to_s%>
+    </li>
 
-<p>
-  <strong>Oficio:</strong>
-  <%= @beneficiario.oficio %>
-</p>
+    <li class="list-group-item text-right">
+     <span class="pull-left">
+       <strong class="">Profesion/Oficio</strong>
+     </span>
+     <%= @beneficiario.oficio.to_s%>
+    </li>
 
-<p>
-  <strong>Estado civil:</strong>
-  <%= @beneficiario.estado_civil %>
-</p>
+    <li class="list-group-item text-right">
+     <span class="pull-left">
+       <strong class="">Tipo de Casa</strong>
+     </span>
+     <%= @beneficiario.tipo_de_casa.to_s%>
+    </li>
 
-<p>
-  <strong>Tipo de casa:</strong>
-  <%= @beneficiario.tipo_de_casa %>
-</p>
+    <li class="list-group-item text-right">
+     <span class="pull-left">
+       <strong class="">Nº de Habitaciones</strong>
+     </span>
+     <%= @beneficiario.num_habitaciones.to_s%>
+    </li>
 
-<p>
-  <strong>Num habitaciones:</strong>
-  <%= @beneficiario.num_habitaciones %>
-</p>
+    <li class="list-group-item text-right">
+     <span class="pull-left">
+       <strong class="">Nº de Baños</strong>
+     </span>
+     <%= @beneficiario.num_banos.to_s%>
+    </li>
 
-<p>
-  <strong>Num banos:</strong>
-  <%= @beneficiario.num_banos %>
-</p>
+    <li class="list-group-item text-right">
+     <span class="pull-left">
+       <strong class="">Enseres</strong>
+     </span>
+     <%= @beneficiario.enseres%>
+   </li>
 
-<p>
-  <strong>Enseres:</strong>
-  <%= @beneficiario.enseres %>
-</p>
+    <li class="list-group-item text-right">
+     <span class="pull-left">
+       <strong class="">Observacion</strong>
+     </span>
+     <%= @beneficiario.obs_enseres.to_s%>
+    </li>
+    </br>
 
-<p>
-  <strong>Obs enseres:</strong>
-  <%= @beneficiario.obs_enseres %>
-</p>
+    <li class="list-group-item text-right">
+     <span class="pull-left">
+       <strong class="">Discapacidad</strong>
+     </span>
+     <%= @beneficiario.discapacidad%>
+    </li>
 
-<%= link_to 'Edit', edit_beneficiario_path(@beneficiario) %> |
-<%= link_to 'Back', beneficiarios_path %>
+    <li class="list-group-item text-right">
+     <span class="pull-left">
+       <strong class="">Observacion</strong>
+     </span>
+     <%= @beneficiario.obs_discapacidad.to_s%>
+    </li>
+
+  <ul>
+</div>
+
+<% if @beneficiario.solcitante.solicitudes.length>0 %>
+<div class="col-md-6">
+<ul class="list-group">
+  <li class="list-group-item text-muted" contenteditable="false"><i class="fa fa-users"></i> Solicitud (es)</li>
+  <li class="list-group-item">
+    <table class="table table-hover table-condensed text-center">
+      <thead>
+        <tr>
+          <th class="actions text-center" style="width:16%;">Estatus</th>
+          <th class="actions text-center">Ayuda</th>
+          <th class="actions text-center" style="width:17%;">Fecha</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @beneficiario.solicitantes.each do |solicitud|%>
+        <tr>
+          <td><%="#{$dic['tipo_de_cedula'].key(beneficiario.tipo_cedula)} #{beneficiario.cedula}"%></td>
+          <td class="text-capitalize"><%="#{beneficiario.nombres} #{beneficiario.apellidos}"%></td>
+          <td><%=$dic["status"].key(beneficiario.estatus.to_s)%></td>
+          <td><%=solicitud.created_at.strftime("%d-%m-%Y")%></td>
+          <td><%= link_to 'Show', solicitante_beneficiario_path(@solicitante, beneficiario) %></td>
+        </tr>
+        <%end%>
+      </tbody>
+
+    </table>
+  </li>
+</ul>
+</div>
+<%else%>
+<div class="text-center col-md-6">
+<ul class="list-group">
+  <li class="list-group-item text-muted text-left" contenteditable="false">
+    <i class="fa fa-comment-o"></i>
+    Mensaje</li>
+  <li class="list-group-item"></br>
+  <i class="fa fa-user-times fa-4x" style="color:#24A5FF;"></i>
+  <h2>El beneficiario no tiene solicitudes.</h2>
+</li>
+</ul>
+</div>
+<%end%>
+</div>

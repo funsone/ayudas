@@ -2,5 +2,4 @@
 
 <%= render 'form', beneficiario: @beneficiario %>
 
-<%= link_to 'Show', @beneficiario %> |
-<%= link_to 'Back', beneficiarios_path %>
+<%= link_to 'Back', solicitante_beneficiario_path(@solicitante, @beneficiario) %>

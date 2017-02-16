@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170119130303) do
+ActiveRecord::Schema.define(version: 20170209183500) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,6 +37,8 @@ ActiveRecord::Schema.define(version: 20170119130303) do
     t.integer  "num_banos"
     t.boolean  "enseres"
     t.string   "obs_enseres"
+    t.boolean  "discapacidad"
+    t.string   "obs_discapacidad"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
   end
@@ -47,31 +49,14 @@ ActiveRecord::Schema.define(version: 20170119130303) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "models", force: :cascade do |t|
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
-    t.string   "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.inet     "current_sign_in_ip"
-    t.inet     "last_sign_in_ip"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
-    t.index ["email"], name: "index_models_on_email", unique: true, using: :btree
-    t.index ["reset_password_token"], name: "index_models_on_reset_password_token", unique: true, using: :btree
-  end
-
-  create_table "relaciones", force: :cascade do |t|
+  create_table "historiales", force: :cascade do |t|
     t.integer  "parentesco"
     t.integer  "solicitante_id"
     t.integer  "beneficiario_id"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
-    t.index ["beneficiario_id"], name: "index_relaciones_on_beneficiario_id", using: :btree
-    t.index ["solicitante_id"], name: "index_relaciones_on_solicitante_id", using: :btree
+    t.index ["beneficiario_id"], name: "index_historiales_on_beneficiario_id", using: :btree
+    t.index ["solicitante_id"], name: "index_historiales_on_solicitante_id", using: :btree
   end
 
   create_table "roles", force: :cascade do |t|
@@ -113,11 +98,13 @@ ActiveRecord::Schema.define(version: 20170119130303) do
     t.integer  "status"
     t.text     "descripcion"
     t.integer  "ayuda_id"
-    t.integer  "relacion_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.integer  "beneficiario_id"
+    t.integer  "solicitante_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
     t.index ["ayuda_id"], name: "index_solicitudes_on_ayuda_id", using: :btree
-    t.index ["relacion_id"], name: "index_solicitudes_on_relacion_id", using: :btree
+    t.index ["beneficiario_id"], name: "index_solicitudes_on_beneficiario_id", using: :btree
+    t.index ["solicitante_id"], name: "index_solicitudes_on_solicitante_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
@@ -144,8 +131,9 @@ ActiveRecord::Schema.define(version: 20170119130303) do
   end
 
   add_foreign_key "ayudas", "departamentos"
-  add_foreign_key "relaciones", "beneficiarios"
-  add_foreign_key "relaciones", "solicitantes"
+  add_foreign_key "historiales", "beneficiarios"
+  add_foreign_key "historiales", "solicitantes"
   add_foreign_key "solicitudes", "ayudas"
-  add_foreign_key "solicitudes", "relaciones"
+  add_foreign_key "solicitudes", "beneficiarios"
+  add_foreign_key "solicitudes", "solicitantes"
 end
