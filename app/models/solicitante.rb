@@ -1,6 +1,7 @@
 class Solicitante < ApplicationRecord
   has_many :historiales
   has_many :beneficiarios, through: :historiales
+  has_many :solicitudes, dependent: :destroy
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :correo, format: { with: VALID_EMAIL_REGEX, message: 'El formato de correo es inválido'}, :allow_blank => true
   validates :telefono_fijo, :telefono_movil, length: { is: 11 }, allow_blank: true, numericality: { only_integer: true }
@@ -9,4 +10,11 @@ class Solicitante < ApplicationRecord
   validates :cedula, :nombres, :apellidos, :tipo_cedula, :estado_civil, :grado_de_instruccion, :municipios, :direccion, :oficio, :carga_familiar, :fecha_de_nacimiento, :lugar_de_nacimiento, :sexo, :ingreso_mensual, presence: true, :allow_blank => false
   validates :cedula, uniqueness: { case_sensitive: false, message: 'Ya se encuentra registrada' }, numericality: { only_integer: true }
 
+  self.per_page = 10
+  def self.search(search)
+   search = search.downcase
+
+     where('cedula = ?', "#{search}").order(:id)
+
+  end
 end

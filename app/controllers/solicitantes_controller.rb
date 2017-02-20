@@ -4,7 +4,7 @@ class SolicitantesController < ApplicationController
   # GET /solicitantes
   # GET /solicitantes.json
   def index
-    @solicitantes = Solicitante.all
+    @solicitantes = Solicitante.all.paginate(:per_page => 10, :page => params[:page]).order('created_at DESC')
   end
 
   # GET /solicitantes/1

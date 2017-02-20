@@ -4,14 +4,15 @@ class BeneficiariosController < ApplicationController
   # GET /beneficiarios
   # GET /beneficiarios.json
   def index
-    @solicitante=Solicitante.find(params[:solicitante_id])
-    @beneficiarios = @solicitante.beneficiarios.all.paginate(:page => params[:page]).order('created_at DESC')
+
   end
 
   # GET /beneficiarios/1
   # GET /beneficiarios/1.json
   def show
     @solicitante= Solicitante.find(params[:solicitante_id])
+    @beneficiario= Beneficiario.find(params[:id])
+    @solicitudes = Solicitud.where(solicitante_id: @solicitante.id, beneficiario_id: @beneficiario.id).all
   end
 
   # GET /beneficiarios/new
@@ -34,8 +35,7 @@ class BeneficiariosController < ApplicationController
   def create
     solicitante=Solicitante.find(params[:solicitante_id])
     @beneficiario = Beneficiario.create(beneficiario_params)
-    beneficiario=beneficiario.historial_params
-    @beneficiario.historiales.build(parentesco: beneficiario[:parentesco], solicitante_id: solicitante.id)
+    @beneficiario.historiales.build(parentesco: 2, solicitante_id: solicitante.id)
 
     respond_to do |format|
       if @beneficiario.save

@@ -4,9 +4,7 @@ class SolicitudesController < ApplicationController
   # GET /solicitudes
   # GET /solicitudes.json
   def index
-    @solicitante=Solicitante.find(params[:solicitante_id])
-    @beneficiario=Beneficiario.find(params[:beneficiario_id])
-    @solicitudes = @solicitante.beneficiarios.solicitudes.all.paginate(:page => params[:page]).order('created_at DESC')
+      @solicitudes= Solicitud.all
   end
 
   # GET /solicitudes/1

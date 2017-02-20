@@ -57,6 +57,23 @@ class ApplicationController < ActionController::Base
 'Vecino(a)' => 7,
 'Hermano(a)' => 8,
 'Abuelo(a)' => 9,
-'Otros' => 10]]
+'Otros' => 10],
+
+'tipo_de_casa' => Hash[
+'Vivienda Completa' => 0,
+'Vivienda Incompleta' => 1,
+'Vivienda Rústica' => 2],
+
+'oficio' => Hash[
+  'Constructor' => 0,
+  'Chofer' => 1,
+  'Ama de casa' => 2,
+  'Estudiante' => 3],
+
+  'condicion' => Hash[
+    'SI' => true,
+    'NO' => false]
+
+]
 
 end

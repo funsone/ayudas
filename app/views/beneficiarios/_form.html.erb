@@ -1,28 +1,82 @@
 <%= simple_form_for([@solicitante, @beneficiario]) do |f| %>
-  <%= f.error_notification %>
 
-  <div class="form-inputs">
-    <%= f.input :tipo_cedula %>
-    <%= f.input :cedula %>
-    <%= f.input :nombres %>
-    <%= f.input :apellidos %>
-    <%= f.input :sexo %>
-    <%= f.input :fecha_de_nacimiento %>
-    <%= f.input :oficio %>
-    <%= f.input :estado_civil %>
-    <%= f.input :tipo_de_casa %>
-    <%= f.input :num_habitaciones %>
-    <%= f.input :num_banos %>
-    <%= f.input :enseres %>
-    <%= f.input :obs_enseres %>
-    <%= f.input :discapacidad %>
-    <%= f.input :obs_discapacidad %>
-    <%= f.simple_fields_for :historial do |p| %>
-      <%= p.input :parentesco %>
-    <% end %>
-  </div>
 
-  <div class="form-actions">
-    <%= f.button :submit %>
+<%= f.error_notification %>
+<ul class="list-group ">
+  <li class="list-group-item text-muted col-md-12" contenteditable="false"><i class="fa fa-database"></i> Datos<div class="pull-right text-warning">
+    <i class="fa fa-asterisk"></i> Campo Obligatorio
+      </div></li>
+  <li class="list-group-item col-md-12">
+
+    <div class="form-inputs">
+      <div class="col-md-4 <%='has-error' if @beneficiario.errors.keys.include?(:cedula) ==true or @beneficiario.errors.keys.include?(:tipo_de_cedula) ==true %> <%='has-success' if ((@beneficiario.errors.keys.include?(:cedula) ==false and @beneficiario.errors.keys.include?(:tipo_de_cedula) ==false) and @beneficiario.errors.any?)%>">
+        <div class="form-group">
+          <%= f.label :cedula, class: "control-label"%>
+          <div class="input-group form-inline">
+            <span class="input-group-btn">
+              <%= f.select(:tipo_cedula , options_for_select($dic["tipo_de_cedula"],@beneficiario.tipo_cedula),{include_blank: ''}, class: "dropdown-toggle form-control", style: "padding:7px 12px;width:60px" ) %>
+
+            </span>
+              <%= f.input_field :cedula, label: false, class:"form-control" %>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 <%='has-error' if @beneficiario.errors.keys.include?(:nombres) ==true %> <%='has-success' if (@beneficiario.errors.keys.include?(:nombres) ==false and @beneficiario.errors.any?)%>">
+        <%= f.input :nombres %>
+      </div>
+      <div class="col-md-4 <%='has-error' if @beneficiario.errors.keys.include?(:apellidos) ==true %> <%='has-success' if (@beneficiario.errors.keys.include?(:apellidos) ==false and @beneficiario.errors.any?)%>">
+        <%= f.input :apellidos %>
+      </div>
+      <div class="col-md-4 <%='has-error' if @beneficiario.errors.keys.include?(:sexo) ==true %> <%='has-success' if (@beneficiario.errors.keys.include?(:sexo) ==false and @beneficiario.errors.any?)%>">
+        <%= f.label :sexo %>
+        <%= f.select(:sexo , options_for_select($dic["sexo"],@beneficiario.sexo),{include_blank: 'Seleccione un sexo...'},class: "form-control" )  %>
+      </div>
+      <div class="col-md-2 <%='has-error' if @beneficiario.errors.keys.include?(:fecha_de_nacimiento) ==true %> <%='has-success' if (@beneficiario.errors.keys.include?(:fecha_de_nacimiento) ==false and @beneficiario.errors.any?)%>">
+        <%= f.input :fecha_de_nacimiento, as: :date, html5: true %>
+      </div>
+      <div class="col-md-2">
+        <%= f.label :oficio %>
+        <%= f.select(:oficio , options_for_select($dic["oficio"],@beneficiario.oficio),{include_blank: 'Seleccione un oficio...'},class: "form-control" )  %>
+      </div>
+      <div class="col-md-4">
+        <%= f.label :estado_civil %>
+        <%= f.select(:estado_civil , options_for_select($dic["estado"],@beneficiario.estado_civil),{include_blank: 'Seleccione un estado civil...'},class: "form-control" )  %>
+      </br>
+      </div>
+      <div class="col-md-4">
+        <%= f.label :tipo_de_casa %>
+        <%= f.select(:tipo_de_casa , options_for_select($dic["tipo_de_casa"],@beneficiario.tipo_de_casa),{include_blank: 'Seleccione un tipo de casa...'},class: "form-control" )  %>
+      </div>
+      <div class="col-md-2 <%='has-error' if @beneficiario.errors.keys.include?(:num_habitaciones) ==true %> <%='has-success' if (@beneficiario.errors.keys.include?(:num_habitaciones) ==false and @beneficiario.errors.any?)%>">
+        <%= f.input :num_habitaciones %>
+      </div>
+      <div class="col-md-2 <%='has-error' if @beneficiario.errors.keys.include?(:num_banos) ==true %> <%='has-success' if (@beneficiario.errors.keys.include?(:num_banos) ==false and @beneficiario.errors.any?)%>">
+        <%= f.input :num_banos %>
+      </div>
+      <div class="col-md-1">
+        <%= f.label :enseres %>
+        <%= f.collection_radio_buttons :enseres, [[true, 'Si'], [false, 'No']], :first, :last, :default => true, :checked => true%>
+      </div>
+      <div class="col-md-3 <%='has-error' if @beneficiario.errors.keys.include?(:obs_enseres) ==true %> <%='has-success' if (@beneficiario.errors.keys.include?(:obs_enseres) ==false and @beneficiario.errors.any?)%>">
+        <%= f.input :obs_enseres %>
+      </div>
+      <div class="col-md-1">
+        <%= f.label :discapacidad %>
+        <%= f.collection_radio_buttons :discapacidad, [[true, 'Si'], [false, 'No']], :first, :last, :default => true, :checked => false%>
+      </div>
+      <div class="col-md-3 <%='has-error' if @beneficiario.errors.keys.include?(:obs_discapacidad) ==true %> <%='has-success' if (@beneficiario.errors.keys.include?(:obs_discapacidad) ==false and @beneficiario.errors.any?)%>">
+        <%= f.input :obs_discapacidad %>
+      </div>
+      <div class="col-md-4">
+        <%= f.simple_fields_for :historial do |p| %>
+        <%= p.input :parentesco %>
+        <% end %>
+      </div>
+
   </div>
-<% end %>
+</li>
+
+  <%= render 'layouts/botones', :f=>f, path: solicitante_beneficiario_path(@solicitante, @beneficiario)%>
+</ul>
+  <% end %>

@@ -1,6 +1,6 @@
 <div class="col-md-12 page-header">
   <div class="col-sm-10">
-    <h2><i class="fa fa-user" style="font-size:60px; color:#24A5FF;"></i><%= (+ "  " + @solicitante.nombres + " " + @solicitante.apellidos).upcase%></h2>
+    <h2><i class="fa fa-user" style="font-size:60px;"></i><%= (+ "  " + @solicitante.nombres + " " + @solicitante.apellidos).upcase%></h2>
   </div>
 
 </div>
@@ -47,7 +47,7 @@
       <span class="pull-left">
         <strong class="">Fecha de Nacimiento</strong>
       </span>
-      <%= @solicitante.fecha_de_nacimiento.to_s%>
+      <%= @solicitante.fecha_de_nacimiento.strftime("%d-%m-%Y")%>
      </li>
 
      <li class="list-group-item text-right">
@@ -113,6 +113,7 @@
         <strong class="">Empresa</strong>
       </span>
       <%= @solicitante.empresa.capitalize %>
+    </br>
      </li>
 
      <li class="list-group-item text-right">
@@ -159,6 +160,7 @@
              <th class="actions text-center">Nombres</th>
              <th class="actions text-center" style="width:17%;">Fecha de Nacimiento</th>
              <th class="actions text-center" style="width:10%;">Sexo</th>
+             <th class="actions text-center" style="width:10%;">Acciones</th>
            </tr>
          </thead>
 
@@ -169,7 +171,7 @@
              <td class="text-capitalize"><%="#{beneficiario.nombres} #{beneficiario.apellidos}"%></td>
              <td><%=beneficiario.fecha_de_nacimiento.strftime("%d-%m-%Y")%></td>
              <td><%=$dic["sexo"].key(beneficiario.sexo.to_i)%></td>
-             <td><%= link_to 'Show', solicitante_beneficiario_path(@solicitante, beneficiario) %></td>
+             <td><%= link_to raw('<i class="fa fa-eye"></i>'), solicitante_beneficiario_path(@solicitante, beneficiario),class:"btn1 btn btn-success" %></td>
            </tr>
            <%end%>
          </tbody>

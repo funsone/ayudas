@@ -8,9 +8,8 @@
 <br>
   <div class="col-md-12">
     <ul class="nav nav-pills nav-justified">
-      <li role="presentation"><%=link_to raw('<i class="fa fa-arrow-circle-left"></i> Regresar'), beneficiarios_path%></li>
-      <li role="presentation"><%=link_to raw('<i class="fa fa-pencil"></i> Editar'), edit_beneficiario_path(@beneficiario)%></li>
-      <li role="presentation"><%=link_to raw('<i class="fa fa-plus"></i> Nuevo Beneficiario'), new_solicitante_beneficiario_path(@beneficiario)%></li>
+      <li role="presentation"><%=link_to raw('<i class="fa fa-arrow-circle-left"></i> Regresar'), solicitante_beneficiarios_path(@solicitante)%></li>
+      <li role="presentation"><%=link_to raw('<i class="fa fa-pencil"></i> Editar'), edit_solicitante_beneficiario_path(@solicitante, @beneficiario)%></li>
       <li role="presentation"><%=link_to raw('<i class="fa fa-plus"></i> Nueva solicitud'), new_solicitante_beneficiario_solicitud_path(@solicitante, @beneficiario)%></li>
     </ul>
   </div>
@@ -42,7 +41,7 @@
      <span class="pull-left">
        <strong class="">Fecha de Nacimiento</strong>
      </span>
-     <%= @beneficiario.fecha_de_nacimiento.to_s%>
+     <%= @beneficiario.fecha_de_nacimiento.strftime("%d-%m-%Y")%>
     </li>
 
     <li class="list-group-item text-right">
@@ -56,14 +55,14 @@
      <span class="pull-left">
        <strong class="">Profesion/Oficio</strong>
      </span>
-     <%= @beneficiario.oficio.to_s%>
+     <%= $dic["oficio"].key(@beneficiario.oficio)%>
     </li>
 
     <li class="list-group-item text-right">
      <span class="pull-left">
        <strong class="">Tipo de Casa</strong>
      </span>
-     <%= @beneficiario.tipo_de_casa.to_s%>
+     <%= $dic["tipo_de_casa"].key(@beneficiario.tipo_de_casa)%>
     </li>
 
     <li class="list-group-item text-right">
@@ -84,7 +83,7 @@
      <span class="pull-left">
        <strong class="">Enseres</strong>
      </span>
-     <%= @beneficiario.enseres%>
+    <%= $dic["condicion"].key(@beneficiario.enseres)%>
    </li>
 
     <li class="list-group-item text-right">
@@ -92,14 +91,15 @@
        <strong class="">Observacion</strong>
      </span>
      <%= @beneficiario.obs_enseres.to_s%>
+     </br>
     </li>
-    </br>
+
 
     <li class="list-group-item text-right">
      <span class="pull-left">
        <strong class="">Discapacidad</strong>
      </span>
-     <%= @beneficiario.discapacidad%>
+     <%= $dic["condicion"].key(@beneficiario.discapacidad)%>
     </li>
 
     <li class="list-group-item text-right">
@@ -107,12 +107,13 @@
        <strong class="">Observacion</strong>
      </span>
      <%= @beneficiario.obs_discapacidad.to_s%>
+   </br>
     </li>
 
   <ul>
 </div>
 
-<% if @beneficiario.solcitante.solicitudes.length>0 %>
+<% if @solicitudes.length>0 %>
 <div class="col-md-6">
 <ul class="list-group">
   <li class="list-group-item text-muted" contenteditable="false"><i class="fa fa-users"></i> Solicitud (es)</li>
@@ -120,20 +121,20 @@
     <table class="table table-hover table-condensed text-center">
       <thead>
         <tr>
-          <th class="actions text-center" style="width:16%;">Estatus</th>
           <th class="actions text-center">Ayuda</th>
+          <th class="actions text-center">Descripción</th>
+          <th class="actions text-center">Estatus</th>
           <th class="actions text-center" style="width:17%;">Fecha</th>
         </tr>
       </thead>
 
       <tbody>
-        <% @beneficiario.solicitantes.each do |solicitud|%>
+        <% @solicitudes.each do |solicitud|%>
         <tr>
-          <td><%="#{$dic['tipo_de_cedula'].key(beneficiario.tipo_cedula)} #{beneficiario.cedula}"%></td>
-          <td class="text-capitalize"><%="#{beneficiario.nombres} #{beneficiario.apellidos}"%></td>
-          <td><%=$dic["status"].key(beneficiario.estatus.to_s)%></td>
+          <td><%=solicitud.ayuda.nombre%></td>
+          <td><%=solicitud.descripcion%></td>
+          <td><%=$dic["status"].key(solicitud.status)%></td>
           <td><%=solicitud.created_at.strftime("%d-%m-%Y")%></td>
-          <td><%= link_to 'Show', solicitante_beneficiario_path(@solicitante, beneficiario) %></td>
         </tr>
         <%end%>
       </tbody>

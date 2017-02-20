@@ -1,7 +1,6 @@
 <div class="col-md-12 page-header">
   <div class="pull-right">
 
-    <%= link_to raw('<i class="fa fa-plus"></i> Nueva Solicitud'), new_solicitud_path,class:"btn btn-success" %>
   </div>
   <h1><i class="fa fa-paper-plane"></i> Solicitudes</h1>
 </div>
@@ -13,24 +12,23 @@
 <table class="table table-responsive table-hover table-condensed text-center " style="font-size:11px;">
   <thead>
     <tr>
-      <th class="text-center">Estatus</th>
-      <th class="text-center">Solicitante</th>
       <th class="text-center">Beneficiario</th>
+      <th class="text-center">Solicitante</th>
       <th class="text-center">Ayuda</th>
-      <th width="200px" class="text-center">Acciones</th>
+      <th class="text-center">Descripción</th>
+      <th class="text-center">Estatus</th>
     </tr>
   </thead>
 
   <tbody>
     <% @solicitudes.each do |solicitud| %>
       <tr>
-        <td><%= $dic["status"].key(solicitud.status).to_s%></td>
-        <td><%= solicitud.solicitante.nombres+" "+solicitud.solicitante.apellidos %></td>
-        <td><%= solicitud.beneficiario.nombres+" "+solicitud.beneficiario.apellidos %></td>
+
+        <td><%= solicitud.beneficiario.nombres+" "+solicitud.beneficiario.apellidos%></td>
+        <td><%= solicitud.solicitante.nombres+" "+solicitud.solicitante.apellidos%></td>
         <td><%= solicitud.ayuda.nombre %></td>
-        <td><%= link_to 'Show', solicitud %>
-          <%= link_to 'Edit', edit_solicitud_path(solicitud) %>
-          <%= link_to 'Destroy', solicitud, method: :delete, data: { confirm: 'Are you sure?' } %>
+        <td><%= solicitud.descripcion %></td>
+        <td><%= $dic["status"].key(solicitud.status).to_s%></td>
         </td>
       </tr>
     <% end %>
@@ -38,5 +36,3 @@
 </table>
 
 <br>
-
-<%= link_to 'New Solicitud', new_solicitud_path %>
