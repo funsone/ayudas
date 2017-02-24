@@ -97,7 +97,8 @@
       <span class="pull-left">
         <strong class="">Ingreso Mensual</strong>
       </span>
-      <%= @solicitante.ingreso_mensual.to_s %>
+
+      <%= number_to_currency(@solicitante.ingreso_mensual, unit: "", separator: ",", delimiter: ".", format: "%n %u") %>
      </li>
 
      <li class="list-group-item text-right">
@@ -167,7 +168,7 @@
          <tbody>
            <%@solicitante.beneficiarios.each do |beneficiario|%>
            <tr>
-             <td><%="#{$dic['tipo_de_cedula'].key(beneficiario.tipo_cedula)} #{beneficiario.cedula}"%></td>
+             <td><%="#{$dic['tipo_de_cedula'].key(beneficiario.tipo_cedula)}-#{beneficiario.cedula}"%></td>
              <td class="text-capitalize"><%="#{beneficiario.nombres} #{beneficiario.apellidos}"%></td>
              <td><%=beneficiario.fecha_de_nacimiento.strftime("%d-%m-%Y")%></td>
              <td><%=$dic["sexo"].key(beneficiario.sexo.to_i)%></td>

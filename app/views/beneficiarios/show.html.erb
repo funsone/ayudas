@@ -8,7 +8,7 @@
 <br>
   <div class="col-md-12">
     <ul class="nav nav-pills nav-justified">
-      <li role="presentation"><%=link_to raw('<i class="fa fa-arrow-circle-left"></i> Regresar'), solicitante_beneficiarios_path(@solicitante)%></li>
+      <li role="presentation"><%=link_to raw('<i class="fa fa-arrow-circle-left"></i> Regresar'), solicitante_path(@solicitante)%></li>
       <li role="presentation"><%=link_to raw('<i class="fa fa-pencil"></i> Editar'), edit_solicitante_beneficiario_path(@solicitante, @beneficiario)%></li>
       <li role="presentation"><%=link_to raw('<i class="fa fa-plus"></i> Nueva solicitud'), new_solicitante_beneficiario_solicitud_path(@solicitante, @beneficiario)%></li>
     </ul>

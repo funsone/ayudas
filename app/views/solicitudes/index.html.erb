@@ -5,6 +5,10 @@
   <h1><i class="fa fa-paper-plane"></i> Solicitudes</h1>
 </div>
 
+<div class="col-md-12" id="beneficiarios">
+  <%=render "beneficiarios"%>
+</div>
+
 <ul class="list-group">
       <li class="list-group-item text-muted col-md-12" contenteditable="false">Lista de solicitudes</li>
       <li class="list-group-item col-md-12">
@@ -12,6 +16,7 @@
 <table class="table table-responsive table-hover table-condensed text-center " style="font-size:11px;">
   <thead>
     <tr>
+      <th class="text-center">Cédula</th>
       <th class="text-center">Beneficiario</th>
       <th class="text-center">Solicitante</th>
       <th class="text-center">Ayuda</th>
@@ -23,7 +28,7 @@
   <tbody>
     <% @solicitudes.each do |solicitud| %>
       <tr>
-
+        <td><%="#{$dic['tipo_de_cedula'].key(solicitud.beneficiario.tipo_cedula)}-#{solicitud.beneficiario.cedula}"%></td>
         <td><%= solicitud.beneficiario.nombres+" "+solicitud.beneficiario.apellidos%></td>
         <td><%= solicitud.solicitante.nombres+" "+solicitud.solicitante.apellidos%></td>
         <td><%= solicitud.ayuda.nombre %></td>
@@ -36,3 +41,31 @@
 </table>
 
 <br>
+
+<script>
+             var classes = ".resultado";
+             var delay = (function () {
+               var timer = 0;
+               return function (callback, ms) {
+                 clearTimeout(timer);
+                 timer = setTimeout(callback, ms);
+               };
+             })();
+             function loading() {
+               $("#search_icon").attr("class", "fa fa-refresh fa-spin fa-fw")
+             }
+             function query() {
+               loading();
+               return "/solicitudes?search=" + $("#search").val();
+             }
+             $(function () {
+
+               $("#search").keyup(function () {
+                 delay(function () {
+                   $.getScript(query());
+                   return false;
+                 }, 500);
+               });
+
+             });
+</script>

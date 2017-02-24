@@ -1,0 +1,44 @@
+<br>
+<%if p.length>0%>
+<div class="table-responsive">
+
+    <table class="table table-responsive table-hover table-condensed" style="font-size:11px;">
+        <thead>
+            <tr>
+                <th class="text-center">Cédula</th>
+                <th class="text-center">Nombre Completo</th>
+                <th class="text-center">Ayuda</th>
+                <th class="text-center">Fecha</th>
+                <th class="text-center">Departamento</th>
+                <th class="text-center">Acciones</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <% @beneficiarios.each do |beneficiario| %>
+            <tr>
+                <td><%= $dic["tipo_de_cedula"].key(beneficiario.tipo_de_cedula).to_s + "-" + beneficiario.cedula.to_s %></td>
+                <td class="text-capitalize text-center"><%= beneficiario.nombres.downcase + " " +beneficiario.apellidos.downcase %></td>
+                <td class="text-center"><%= beneficiario.solicitud.ayuda.nombre %></td>
+                <td class="text-center"><%= beneficiario.solicitud.create_at.strftime("%d-%m-%Y") %></td>
+                <td class="text-capitalize"><%= beneficiario.solicitud.departamento.nombre%></td>
+                <td class="text-center">
+                    <div class="btn-group btn-group-xs form-inline" role="group" aria-label="...">
+                        <%= link_to raw('<i class="fa fa-plus"></i>'), new_beneficiario_solicitud_path(beneficiario),class:"btn btn-default" %>
+                        <%= link_to raw('<i class="fa fa-eye"></i>'), show_beneficiario_path(beneficiario),class:"btn btn-success","data-toggle": "tooltip", "data-placement": "top", title: "Ver más" %></div>
+                </td>
+                <td class="text-center">
+                    <div class="btn-group btn-group-xs form-inline" role="group" aria-label="...">
+                        <%= link_to raw('<i class="fa fa-eye"></i>'), beneficiario,class:"btn btn-success","data-toggle": "tooltip", "data-placement": "top", title: "Ver más" %>
+                        <%= link_to raw('<i class="fa fa-pencil"></i>'), edit_beneficiario_path(beneficiario),class:"btn btn-info","data-toggle": "tooltip", "data-placement": "top", title: "Editar elemento" %>
+                </td>
+            </tr>
+            <% end %>
+        </tbody>
+    </table>
+</div>
+<%else%>
+<div class="text-center">
+    <h4>"No hay personas con esta cédula."</h4>
+</div>
+<%end%>

@@ -4,7 +4,11 @@ class SolicitudesController < ApplicationController
   # GET /solicitudes
   # GET /solicitudes.json
   def index
-      @solicitudes= Solicitud.all
+    if  !params[:search].nil?
+      s = params[:search]
+      @beneficiarios = Beneficiario.search s
+    end
+    @solicitudes=Solicitud.all
   end
 
   # GET /solicitudes/1
