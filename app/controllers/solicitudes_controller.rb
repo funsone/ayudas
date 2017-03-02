@@ -40,7 +40,7 @@ class SolicitudesController < ApplicationController
 
     respond_to do |format|
       if @solicitud.save
-        format.html { redirect_to solicitante_beneficiario_path(@solicitante, @beneficiario), notice: 'Solicitud was successfully created.' }
+        format.html { redirect_to solicitante_beneficiario_path(@solicitante, @beneficiario), notice: 'Solicitud creada exitosamente.' }
         format.json { render :show, status: :created, location: solicitante_beneficiario_path(@solicitante, @beneficiario) }
       else
         format.html { render :new }
@@ -82,5 +82,12 @@ class SolicitudesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def solicitud_params
       params.require(:solicitud).permit(:status, :descripcion, :ayuda_id, :beneficiario_id, :solicitante_id)
+    end
+
+    def distance_of_time_in_days(from_time, to_time = 0, include_seconds = false)
+        from_time = from_time.to_time if from_time.respond_to?(:to_time)
+        to_time = to_time.to_time if to_time.respond_to?(:to_time)
+        distance_in_days = (((to_time - from_time).abs)/86400).round
+        return distance_in_days
     end
 end

@@ -39,8 +39,8 @@ class BeneficiariosController < ApplicationController
 
     respond_to do |format|
       if @beneficiario.save
-        format.html { redirect_to solicitante_path(solicitante), notice: 'Beneficiario creado exitosamente.' }
-        format.json { render :show, status: :created, location: solicitante_path(solicitante) }
+        format.html { redirect_to solicitante_beneficiario_path(solicitante, @beneficiario), notice: 'Beneficiario creado exitosamente.' }
+        format.json { render :show, status: :created, location: solicitante_beneficiario_path(solicitante, @beneficiario) }
       else
         format.html { render :new }
         format.json { render json: @beneficiario.errors, status: :unprocessable_entity }

@@ -1,13 +1,30 @@
 <%= simple_form_for([@solicitante, @beneficiario, @solicitud]) do |f| %>
+
   <%= f.error_notification %>
 
-  <div class="form-inputs">
-    <%= f.input :status %>
-    <%= f.input :descripcion %>
-    <%= f.association :ayuda %>
-  </div>
+  <ul class="list-group ">
+    <li class="list-group-item text-muted col-md-12" contenteditable="false"><i class="fa fa-database"></i> Datos<div class="pull-right text-warning">
+      <i class="fa fa-asterisk"></i> Campo Obligatorio
+        </div></li>
+    <li class="list-group-item col-md-12">
 
-  <div class="form-actions">
-    <%= f.button :submit %>
-  </div>
+      <div class="form-inputs">
+
+        <div class="col-md-4">
+          <%= f.label :status %>
+          <%= f.select(:status , options_for_select($dic["status"],@solicitud.status),{include_blank: 'Seleccione un estatus...'},class: "form-control" )  %>
+        </div>
+
+        <div class="col-md-4">
+          <%= f.input :descripcion %>
+        </div>
+
+        <div class="col-md-4">
+            <%= f.association :ayuda, :label_method => lambda { |owner| "#{owner.nombre.capitalize}"},  :include_blank => "Seleccione una ayuda...", input_html: { class: 'form-control' }  %>
+        </div>
+
+    </div>
+  </li>
+  </ul>
+  <%= render 'layouts/botones', :f=>f, path: solicitante_beneficiario_path(@solicitante, @beneficiario)%>
 <% end %>
