@@ -1,0 +1,43 @@
+<div class="row">
+  <div class="col-md-12 form-box">
+      <div class="form-top">
+          <div class="text-center">
+              <h3 class="text-uppercase">Bienvenido al sistema de Ayudas Sociales</h3>
+              <p>Introduzca su email y contraseña para ingresar:</p>
+
+          </div>
+          <div class="text-center">
+              <i class="fa fa-lock fa-5x"></i>
+
+          </div>
+      </div>
+
+  <div class="col-md-12">
+      <br>
+  </div>
+<div class="form-bottom">
+  <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+  <%= f.error_notification %>
+  <ul class="list-group ">
+      <li class="list-group-item text-muted col-md-12" contenteditable="false">
+          <i class="fa fa-key"></i>
+          Datos<div class="pull-right text-warning"></div>
+      </li>
+      <li class="list-group-item col-md-12">
+          <div class="form-inputs">
+              <div class="col-md-5">
+                  <%= f.input :email, required: false, autofocus: true, class:"form-username form-control"  %></div>
+              <div class="col-md-5"><%= f.input :password, required: false, autocomplete: "off", class: "form-username form-control" %></div>
+              <div class="col-md-2 text-center">
+                  <br>
+                  <%= f.button :submit, "Entrar", class: "btn btn-lg" %></div>
+          </div>
+  </li>
+  </ul>
+  </br>
+  <% end %>
+    </div>
+      </div>
+  </div>
+
+  <%= render "devise/shared/links" %>

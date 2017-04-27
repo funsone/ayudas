@@ -25,7 +25,7 @@ class BeneficiariosController < ApplicationController
     end
   end
 
-  # GET /beneficiarios/1/edit
+  # GET /beneficiarios/1/edits
   def edit
     @solicitante= Solicitante.find(params[:solicitante_id])
   end
@@ -35,7 +35,7 @@ class BeneficiariosController < ApplicationController
   def create
     solicitante=Solicitante.find(params[:solicitante_id])
     @beneficiario = Beneficiario.create(beneficiario_params)
-    @beneficiario.historiales.build(parentesco: 2, solicitante_id: solicitante.id)
+    @beneficiario.historiales.build(parentesco: beneficiario_params[:historiales_attributes][:parentesco], solicitante_id: solicitante.id)
 
     respond_to do |format|
       if @beneficiario.save
@@ -82,6 +82,6 @@ class BeneficiariosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def beneficiario_params
-      params.require(:beneficiario).permit(:tipo_cedula, :cedula, :nombres, :apellidos, :sexo, :fecha_de_nacimiento, :oficio, :estado_civil, :tipo_de_casa, :num_habitaciones, :num_banos, :enseres, :obs_enseres, :discapacidad, :obs_discapacidad,:historial_attributes => [:parentesco])
+      params.require(:beneficiario).permit(:tipo_cedula, :cedula, :nombres, :apellidos, :sexo, :fecha_de_nacimiento, :oficio, :estado_civil, :tipo_de_casa, :num_habitaciones, :num_banos, :enseres, :obs_enseres, :discapacidad, :obs_discapacidad, historiales_attributes: [:parentesco])
     end
 end

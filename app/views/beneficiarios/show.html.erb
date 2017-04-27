@@ -1,7 +1,7 @@
 <%solicitante= Solicitante.find(params[:solicitante_id])%>
 <div class="col-md-12 page-header">
   <div class="col-sm-10">
-    <h2><i class="fa fa-user" style="font-size:60px"></i><%= (+ "  " + @beneficiario.nombres + " " + @beneficiario.apellidos).upcase%></h2>
+    <h2><i class="fa fa-user" style="font-size:50px"></i><%= (+ "  " + @beneficiario.nombres + " " + @beneficiario.apellidos).upcase%></h2>
   </div>
 
 </div>
@@ -132,7 +132,7 @@
 
       <tbody>
         <% @solicitudes.each do |solicitud|%>
-        <tr>
+        <tr class="<%=$dic['table_color'].key(solicitud.status)%>">
           <td><%=solicitud.ayuda.nombre%></td>
           <td><%=solicitud.descripcion%></td>
           <td><%=$dic["status"].key(solicitud.status)%></td>

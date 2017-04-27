@@ -10,21 +10,50 @@
 
       <div class="form-inputs">
 
-        <div class="col-md-4">
+        <div class="col-md-3">
           <%= f.label :status %>
           <%= f.select(:status , options_for_select($dic["status"],@solicitud.status),{include_blank: 'Seleccione un estatus...'},class: "form-control" )  %>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-5">
           <%= f.input :descripcion %>
         </div>
 
         <div class="col-md-4">
-            <%= f.association :ayuda, :label_method => lambda { |owner| "#{owner.nombre.capitalize}"},  :include_blank => "Seleccione una ayuda...", input_html: { class: 'form-control' }  %>
+            <%= f.association :ayuda, :label_method => lambda { |owner| "#{owner.nombre.capitalize} - #{owner.departamento.nombre.capitalize}" },  :include_blank => "Seleccione una ayuda...", input_html: { class: 'form-control' }  %>
         </div>
 
     </div>
   </li>
   </ul>
-  <%= render 'layouts/botones', :f=>f, path: solicitante_beneficiario_path(@solicitante, @beneficiario)%>
-<% end %>
+
+  <div class="col-md-12">
+  </br>
+  </div>
+    <ul class="list-group">
+          <li class="list-group-item text-muted col-md-12" contenteditable="false"><i class="fa fa-bars"></i> Acciones<div class="pull-right text-warning">
+             <i class="fa fa-warning"></i> Revise los datos antes de guardar
+          </div></li>
+          <li class="list-group-item col-md-12 text-center">
+
+              <button type="submit" name="button" class="btn btn-primary">
+                <%= raw('<i class="fa fa-save"></i> Guardar') %>
+              </button>
+              <%if @solicitud.status.nil?%>
+              <%= link_to raw('<i class="fa fa-arrow-left"></i> Regresar'), solicitante_beneficiario_path(params[:solicitante_id], params[:beneficiario_id]), id:"cerrar", class:"btn btn-default" %>
+              <%else%>
+              <%= link_to raw('<i class="fa fa-arrow-left"></i> Regresar'), solicitudes_path, id: "cerrar", class:"btn btn-default"%>
+              <%end%>
+              </br>
+          </li>
+    </ul>
+
+    <script type="text/javascript">
+      $('#cerrar').click(
+        function (){
+          window.close();
+        });
+    </script>
+
+
+<%end%>

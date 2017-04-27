@@ -54,8 +54,8 @@ class SolicitudesController < ApplicationController
   def update
     respond_to do |format|
       if @solicitud.update(solicitud_params)
-        format.html { redirect_to @solicitud, notice: 'Solicitud was successfully updated.' }
-        format.json { render :show, status: :ok, location: @solicitud }
+        format.html { redirect_to solicitudes_path, notice: 'Solicitud was successfully updated.' }
+        format.json { render :show, status: :ok, location: solicitudes_path }
       else
         format.html { render :edit }
         format.json { render json: @solicitud.errors, status: :unprocessable_entity }
@@ -90,4 +90,5 @@ class SolicitudesController < ApplicationController
         distance_in_days = (((to_time - from_time).abs)/86400).round
         return distance_in_days
     end
+
 end

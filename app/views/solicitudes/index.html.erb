@@ -2,43 +2,52 @@
   <div class="pull-right">
 
   </div>
-  <h1><i class="fa fa-paper-plane"></i> Solicitudes</h1>
+  <h1><i class="fa fa-paper-plane" style="font-size:50px;"></i> Solicitudes</h1>
 </div>
 
 <div class="col-md-12" id="beneficiarios">
   <%=render "beneficiarios"%>
 </div>
+<div class="col-md-12">
+  <ul class="list-group">
+        <li class="list-group-item text-muted col-md-12" contenteditable="false">Lista de solicitudes</li>
+        <li class="list-group-item col-md-12">
 
-<ul class="list-group">
-      <li class="list-group-item text-muted col-md-12" contenteditable="false">Lista de solicitudes</li>
-      <li class="list-group-item col-md-12">
-
-<table class="table table-responsive table-hover table-condensed text-center " style="font-size:11px;">
-  <thead>
-    <tr>
-      <th class="text-center">Cédula</th>
-      <th class="text-center">Beneficiario</th>
-      <th class="text-center">Solicitante</th>
-      <th class="text-center">Ayuda</th>
-      <th class="text-center">Descripción</th>
-      <th class="text-center">Estatus</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @solicitudes.each do |solicitud| %>
+  <table class="table table-responsive table-hover table-condensed text-center " style="font-size:11px;">
+    <thead>
       <tr>
-        <td><%="#{$dic['tipo_de_cedula'].key(solicitud.beneficiario.tipo_cedula)}-#{solicitud.beneficiario.cedula}"%></td>
-        <td><%= solicitud.beneficiario.nombres+" "+solicitud.beneficiario.apellidos%></td>
-        <td><%= solicitud.solicitante.nombres+" "+solicitud.solicitante.apellidos%></td>
-        <td><%= solicitud.ayuda.nombre %></td>
-        <td><%= solicitud.descripcion %></td>
-        <td><%= $dic["status"].key(solicitud.status).to_s%></td>
-        </td>
+        <th class="text-center">Cédula</th>
+        <th class="text-center">Beneficiario</th>
+        <th class="text-center">Solicitante</th>
+        <th class="text-center">Ayuda</th>
+        <th class="text-center">Departamento</th>
+        <th class="text-center">Descripción</th>
+        <th class="text-center">Estatus</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+
+    <tbody>
+      <% @solicitudes.each do |solicitud| %>
+        <tr class="<%=$dic['table_color'].key(solicitud.status)%>">
+          <td><%="#{$dic['tipo_de_cedula'].key(solicitud.beneficiario.tipo_cedula)}-#{solicitud.beneficiario.cedula}"%></td>
+          <td class="capitalize"><%= solicitud.beneficiario.nombres.capitalize+" "+solicitud.beneficiario.apellidos.capitalize%></td>
+          <% if solicitud.beneficiario.cedula != solicitud.solicitante.cedula %>
+          <td class="capitalize"><%= solicitud.solicitante.nombres+" "+solicitud.solicitante.apellidos%></td>
+          <%else%>
+          <td><%= "Él mismo"%></td>
+          <%end%>
+          <td><%= solicitud.ayuda.nombre.capitalize%></td>
+          <td><%= solicitud.ayuda.departamento.nombre%></td>
+          <td><%= solicitud.descripcion.capitalize %></td>
+          <td><%= $dic["status"].key(solicitud.status).to_s%></td>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  </ul>
+</div>
+
 
 <br>
 
@@ -52,7 +61,7 @@
                };
              })();
              function loading() {
-               $("#search_icon").attr("class", "fa fa-refresh fa-spin fa-fw")
+               $("#search_icon").attr("class", "fa fa-refresh fa-spin fa-fw");
              }
              function query() {
                loading();
@@ -67,5 +76,7 @@
                  }, 500);
                });
 
+
              });
+
 </script>

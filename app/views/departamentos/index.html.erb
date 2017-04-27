@@ -1,9 +1,9 @@
 <div class="col-md-12 page-header">
   <div class="pull-right">
 
-    <%= link_to raw('<i class="fa fa-plus"></i> Nuevo Departamento'), new_departamento_path,class:"btn btn-success" %>
+    <%= link_to raw('<i class="fa fa-plus"></i> Nuevo Departamento'), new_departamento_path,class:"btn btn-default" %>
   </div>
-  <h1><i class="fa fa-buildingrai-o"></i> Departamentos</h1>
+  <h1><i class="fa fa-building-o" style="font-size:50px;"></i> Departamentos</h1>
 </div>
 
 <ul class="list-group">
@@ -23,7 +23,6 @@
       <tr>
         <td class="text-capitalize"><%= departamento.nombre %></td>
         <td><%= link_to raw('<i class="fa fa-pencil"></i>'), edit_departamento_path(departamento),class:"btn1 btn btn-info","data-toggle": "tooltip", "data-placement": "top", title: "Editar elemento" %>
-        <%= link_to raw('<i class="fa fa-trash"></i>'), departamento, method: :delete, data: { confirm: '¿Estas seguro que deseas realizar esta acción?' },class:"btn1 btn btn-danger","data-toggle": "tooltip", "data-placement": "top", title: "Eliminar elemento" %></td>
       </tr>
     <% end %>
   </tbody>

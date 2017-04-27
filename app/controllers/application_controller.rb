@@ -72,7 +72,13 @@ class ApplicationController < ActionController::Base
 
   'condicion' => Hash[
     'SI' => true,
-    'NO' => false]
+    'NO' => false],
+
+    'table_color' => Hash[
+    'info' => 0,
+    'success' => 1,
+    'danger' => 2,
+    'warning' => 3],
 
 ]
 

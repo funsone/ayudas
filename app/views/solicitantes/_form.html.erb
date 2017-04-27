@@ -82,5 +82,9 @@
    </li>
   </ul>
 
-<%= render 'layouts/botones', :f=>f, path: solicitantes_path%>
+  <%if @solicitante.cedula.blank?%>
+  <%= render 'layouts/botones', :f=>f, path: solicitantes_path%>
+  <%else%>
+  <%= render 'layouts/botones', :f=>f, path: solicitante_path(@solicitante)%>
+  <%end%>
 <% end %>

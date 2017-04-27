@@ -1,67 +1,71 @@
 <br>
 <%if p.length>0%>
-<div class="table-responsive">
+<div class="table-responsive" id="refresh">
 
-    <table class="table table-responsive table-hover table-condensed" style="font-size:11px;">
-        <thead>
-            <tr>
-                <th class="text-center">Cédula</th>
-                <th class="text-center">Nombre Completo</th>
-                <th class="text-center">Acciones</th>
-            </tr>
-        </thead>
-
-        <tbody>
+    <table class="table table-responsive table-hover table-condensed" style="font-size:11px;" id="refresh2">
 
             <% p.each do |beneficiario| %>
-            <tr>
-                <td><%= $dic["tipo_de_cedula"].key(beneficiario.tipo_cedula).to_s + "-" + beneficiario.cedula.to_s %></td>
-                <td class="text-capitalize text-center"><%= beneficiario.nombres.downcase + " " +beneficiario.apellidos.downcase %></td>
-
-                <div id="<%=beneficiario.id%>" class="modal style-modal text-center" style="display:none;">
-                <!-- Inicio del contenido del modal -->
-
-                  <header class="page-header">
-                    <h2>
-                      <i class="fa fa-user" style="font-size:55px"></i>
-                      <b><%=beneficiario.nombres + " " + beneficiario.apellidos%></b>
-                    </h2>
-                    <h4>Solicitud(es):</h4>
-                  </header>
-
+            <tr class="text-center">
+                  <table class="table table-responsive table-hover table-condensed">
+                  <thead>
+                    <tr>
+                      <h2  style="text-align: -webkit-center;"><i class="fa fa-user" style="font-size:50px"></i> <%=beneficiario.nombres.capitalize + " " + beneficiario.apellidos.capitalize%></h2>
+                    </tr>
+                    <tr>
+                      <h4 style="text-align: -webkit-center;"><%="#{$dic['tipo_de_cedula'].key(beneficiario.tipo_cedula)}-#{beneficiario.cedula}"%></h4>
+                    </tr>
+                    <tr>
+                      <h4 style="text-align: -webkit-center;">Solicitud(es):</h4>
+                    </tr>
+                    <tr>
+                        <th class="text-center">Estatus</th>
+                        <th class="text-center">Solicitante</th>
+                        <th class="text-center">Ayuda</th>
+                        <th class="text-center">Departamento</th>
+                        <th class="text-center">Descripción</th>
+                        <th class="text-center">Fecha</th>
+                        <th class="text-center">Acciones</th>
+                    </tr>
+                  </thead>
                   <%beneficiario.solicitudes.each do |b|%>
+                  <tbody class="text-center">
+                      <tr>
+                        <td>
+                          <p class="margin-b capitalize" style="color:<%if b.status==2%><%="#DC3535"%><%else%><%if b.status==1%><%="#059C05"%><%else%><%if b.status==3%><%="#FF8700"%><%else%><%="#35ACDC"%><%end%><%end%><%end%>">
+                            <%=$dic["status"].key(b.status).to_s%>
+                          </p>
+                        </td>
+                        <td>
+                            <%=b.solicitante.nombres+" "+b.solicitante.apellidos%>
+                        </td>
+                        <td>
+                          <p class="margin-b capitalize" style="color:black">
+                            <%=b.ayuda.nombre%>
+                          </p>
+                        </td>
+                        <td>
+                          <p class="margin-b capitalize " style="color:black">
+                            <%=b.ayuda.departamento.nombre%>
+                          </p>
+                        </td>
+                        <td>
+                          <p class="margin-b capitalize " style="color:black">
+                            <%=b.descripcion%>
+                          </p>
+                        </td>
+                        <td>
+                          <p class="margin-b capitalize">
+                            <%=b.created_at.strftime("%d/%m/%Y")%>  <!-- style="color:<%if ((Time.now-b.created_at)/86400).to_i>=30%><%"red"%><%else%><%"green"%><%end%>" -->
+                          </p>
+                        </td>
+                        <td>
+                          <%= link_to raw('<i class="fa fa-pencil"></i>'), edit_solicitante_beneficiario_solicitud_path(b.solicitante.id, beneficiario.id, b.id), class:"btn1 btn btn-info","data-toggle": "tooltip", "data-placement": "top", title: "Editar solicitante" %>
+                        </td>
 
-                      <p class="margin-b capitalize" style="color:<%if b.status==2%><%="red"%><%else%><%if b.status==1%><%="green"%><%else%><%="blue"%><%end%><%end%>">
-                        <b style="color:black">Estatus:</b>
-                        <%=$dic["status"].key(b.status).to_s%>
-                      </p>
-                      <p class="margin-b capitalize" style="color:black">
-                        <b>Solicitante:</b>
-                        <%=b.solicitante.nombres+" "+b.solicitante.apellidos%>
-                      </p>
-                      <p class="margin-b capitalize" style="color:black">
-                        <b>Ayuda:</b>
-                        <%=b.ayuda.nombre%>
-                      </p>
-                      <p class="margin-b capitalize " style="color:black">
-                        <b>Departamento:</b>
-                        <%=b.ayuda.departamento.nombre%>
-                      </p>
-                      <p class="margin-b capitalize" style="color:<%if ((Time.now-b.created_at)/86400).to_i >=30%><%="red"%><%else%><%="green"%><%end%>">
-                        <b style="color:black">Fecha:</b>
-                        <%=b.created_at.strftime("%d/%m/%Y")%>
-                      </p>
-                      <p>---------------------------------------</p>
-                  <%end%>
-
-                <!-- Fin del contenido del modal -->
-    						</div>
-    					<td>
-    							<a href="#<%=beneficiario.id%>" rel="modal:open">
-    								<i class="fa fa-eye"></i>
-    							</a>
-
-					    </td>
+                    <%end%>
+                    </tr>
+                  </tbody>
+                </table>
 
             </tr>
             <% end %>

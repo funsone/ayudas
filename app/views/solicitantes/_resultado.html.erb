@@ -7,33 +7,33 @@
             <tr>
                 <th class="text-center">Cédula</th>
                 <th class="text-center">Nombre Completo</th>
-                <th class="text-center">Fecha de nacimiento</th>
-                <th class="text-center">Municipio</th>
+                <th class="text-center">Teléfono Fijo</th>
+                <th class="text-center">Teléfono Movil</th>
                 <th class="text-center">Dirección</th>
-                <th class="text-center">Teléfono</th>
-                <th class="text-center">Solicitudes</th>
+                <th class="text-center">Nº de Beneficiarios</th>
+                <th class="text-center">Beneficiarios</th>
                 <th class="text-center">Acciones</th>
             </tr>
         </thead>
 
         <tbody>
-            <% @solicitantes.each do |solicitante| %>
-            <tr>
+            <% @solicitantes_b.each do |solicitante| %>
+            <tr class="text-center">
                 <td><%= $dic["tipo_de_cedula"].key(solicitante.tipo_cedula).to_s + "-" + solicitante.cedula.to_s %></td>
                 <td class="text-capitalize text-center"><%= solicitante.nombres.downcase + " " +solicitante.apellidos.downcase %></td>
-                <td class="text-center"><%= solicitante.fecha_de_nacimiento %></td>
-                <td class="text-center"><%= $dic["municipios"].key(solicitante.municipios) %></td>
-                <td class="text-capitalize"><%= solicitante.direccion.downcase%></td>
                 <td class="text-center"><%= solicitante.telefono_fijo %></td>
+                <td class="text-center"><%= solicitante.telefono_movil %></td>
+                <td class="text-capitalize"><%= solicitante.direccion.downcase%></td>
+                <td class="text-center"><%= solicitante.beneficiarios.length %></td>
                 <td class="text-center">
                     <div class="btn-group btn-group-xs form-inline" role="group" aria-label="...">
                         <%= link_to raw('<i class="fa fa-plus"></i>'), new_solicitante_beneficiario_path(solicitante),class:"btn btn-default" %>
-                        <%= link_to raw('<i class="fa fa-eye"></i>'), solcitantes_path(solicitante),class:"btn btn-success","data-toggle": "tooltip", "data-placement": "top", title: "Ver más" %></div>
+                        <%= link_to raw('<i class="fa fa-eye"></i>'), solicitante_path(solicitante),class:"btn btn-success","data-toggle": "tooltip", "data-placement": "top", title: "Ver beneficiarios" %></div>
                 </td>
                 <td class="text-center">
                     <div class="btn-group btn-group-xs form-inline" role="group" aria-label="...">
-                        <%= link_to raw('<i class="fa fa-eye"></i>'), solicitante,class:"btn btn-success","data-toggle": "tooltip", "data-placement": "top", title: "Ver más" %>
-                        <%= link_to raw('<i class="fa fa-pencil"></i>'), edit_solicitante_path(solicitante),class:"btn btn-info","data-toggle": "tooltip", "data-placement": "top", title: "Editar elemento" %>
+                        <%= link_to raw('<i class="fa fa-eye"></i>'), solicitante,class:"btn btn-success","data-toggle": "tooltip", "data-placement": "top", title: "Ver solicitante" %>
+                        <%= link_to raw('<i class="fa fa-pencil"></i>'), edit_solicitante_path(solicitante),class:"btn btn-info","data-toggle": "tooltip", "data-placement": "top", title: "Editar solicitante" %>
                 </td>
             </tr>
             <% end %>
@@ -43,6 +43,6 @@
 <%else%>
 <div class="text-center">
     <h4>"No hay personas con esta cédula."</h4>
-    <a href="<%= new_solcitante_path+"?cedula="+params[:search]%>" class="btn btn-default">Agregar solicitante</a>
+    <a href="<%= new_solicitante_path+"?cedula="+params[:search]%>" class="btn btn-default">Agregar solicitante</a>
 </div>
 <%end%>

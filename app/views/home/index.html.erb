@@ -7,37 +7,4 @@
 </div>
 
 
-
-<div class="col-md-12" id="personas">
-  <%=render "visitas"%>
 </div>
-
-</div>
-
-<script>
-             var classes = ".solicitante";
-             var delay = (function () {
-               var timer = 0;
-               return function (callback, ms) {
-                 clearTimeout(timer);
-                 timer = setTimeout(callback, ms);
-               };
-             })();
-             function loading() {
-               $("#search_icon").attr("class", "fa fa-refresh fa-spin fa-fw")
-             }
-             function query() {
-               loading();
-               return "/home/index?search=" + $("#search").val();
-             }
-             $(function () {
-
-               $("#search").keyup(function () {
-                 delay(function () {
-                   $.getScript(query());
-                   return false;
-                 }, 500);
-               });
-
-             });
-           </script>

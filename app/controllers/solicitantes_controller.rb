@@ -4,6 +4,10 @@ class SolicitantesController < ApplicationController
   # GET /solicitantes
   # GET /solicitantes.json
   def index
+    if  !params[:search].nil?
+    s = params[:search]
+      @solicitantes_b = Solicitante.search s
+    end
     @solicitantes = Solicitante.all.paginate(:per_page => 10, :page => params[:page]).order('created_at DESC')
   end
 

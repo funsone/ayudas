@@ -1,46 +1,82 @@
 <div class="col-md-12 page-header">
   <div class="pull-right">
 
-    <%= link_to raw('<i class="fa fa-plus"></i> Nuevo Solicitante'), new_solicitante_path,class:"btn btn-success" %>
+    <%= link_to raw('<i class="fa fa-plus"></i> Nuevo Solicitante'), new_solicitante_path,class:"btn btn-default" %>
   </div>
-  <h1><i class="fa fa-users"></i> Solicitantes</h1>
+  <h1><i class="fa fa-users" style="font-size:50px;"></i> Solicitantes</h1>
 </div>
-<ul class="list-group">
-      <li class="list-group-item text-muted col-md-12" contenteditable="false">Lista de solicitantes</li>
-      <li class="list-group-item col-md-12">
 
-<table class="table table-responsive table-hover table-condensed text-center" style="font-size:11px;">
-  <thead>
-    <tr>
-      <th class="text-center">Cédula</th>
-      <th class="text-center">Nombres</th>
-      <th class="text-center">Apellidos</th>
-      <th class="text-center">Teléfono fijo</th>
-      <th class="text-center">Teléfono movil</th>
-      <th class="text-center">Correo</th>
-      <th class="text-center">N° de beneficiarios</th>
-      <th class="text-center" style="width:10%">Acciones</th>
-    </tr>
-  </thead>
+<div class="col-md-12" id="solicitantes">
+  <%=render "solicitantes"%>
+</div>
 
-  <tbody>
-    <% @solicitantes.each do |solicitante| %>
+<div class="col-md-12">
+  <ul class="list-group">
+        <li class="list-group-item text-muted col-md-12" contenteditable="false">Lista de solicitantes</li>
+        <li class="list-group-item col-md-12">
+
+  <table class="table table-responsive table-hover table-condensed text-center" style="font-size:11px;">
+    <thead>
       <tr>
-        <td><%= $dic["tipo_de_cedula"].key(solicitante.tipo_cedula).to_s + "-" + solicitante.cedula.to_s %></td>
-        <td><%= solicitante.nombres %></td>
-        <td><%= solicitante.apellidos %></td>
-        <td><%= solicitante.telefono_fijo %></td>
-        <td><%= solicitante.telefono_movil %></td>
-        <td><%= solicitante.correo %></td>
-        <td><%= solicitante.correo %></td>
-        <td style="width:10%"><%= link_to raw('<i class="fa fa-eye"></i>'), solicitante,class:"btn1 btn btn-success","data-toggle": "tooltip", "data-placement": "top", title: "Ver solicitante" %>
-        <%= link_to raw('<i class="fa fa-pencil"></i>'), edit_solicitante_path(solicitante),class:"btn1 btn btn-info","data-toggle": "tooltip", "data-placement": "top", title: "Editar solicitante" %>
-        <%= link_to raw('<i class="fa fa-trash"></i>'), solicitante, method: :delete, data: { confirm: 'Are you sure?' },class:"btn1 btn btn-danger","data-toggle": "tooltip", "data-placement": "top", title: "Eliminar solicitante" %></td>
+        <th class="text-center">Cédula</th>
+        <th class="text-center">Nombres</th>
+        <th class="text-center">Apellidos</th>
+        <th class="text-center">Teléfono fijo</th>
+        <th class="text-center">Teléfono movil</th>
+        <th class="text-center">Correo</th>
+        <th class="text-center">N° de beneficiarios</th>
+        <th class="text-center" style="width:10%">Acciones</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+
+    <tbody>
+      <% @solicitantes.each do |solicitante| %>
+        <tr>
+          <td><%= $dic["tipo_de_cedula"].key(solicitante.tipo_cedula).to_s + "-" + solicitante.cedula.to_s %></td>
+          <td><%= solicitante.nombres.capitalize %></td>
+          <td><%= solicitante.apellidos.capitalize  %></td>
+          <td><%= solicitante.telefono_fijo %></td>
+          <td><%= solicitante.telefono_movil %></td>
+          <td><%= solicitante.correo %></td>
+          <td><%= solicitante.beneficiarios.length.to_i %></td>
+          <td style="width:10%"><%= link_to raw('<i class="fa fa-eye"></i>'), solicitante,class:"btn1 btn btn-success","data-toggle": "tooltip", "data-placement": "top", title: "Ver solicitante" %>
+          <%= link_to raw('<i class="fa fa-pencil"></i>'), edit_solicitante_path(solicitante),class:"btn1 btn btn-info","data-toggle": "tooltip", "data-placement": "top", title: "Editar solicitante" %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  </ul>
+</div>
+
 <div class="col-md-12 text-center">
 <%= will_paginate  @solicitantes, renderer: BootstrapPagination::Rails%>
 </div>
 <br>
+
+<script>
+             var classes = ".resultado";
+             var delay = (function () {
+               var timer = 0;
+               return function (callback, ms) {
+                 clearTimeout(timer);
+                 timer = setTimeout(callback, ms);
+               };
+             })();
+             function loading() {
+               $("#search_icon").attr("class", "fa fa-refresh fa-spin fa-fw")
+             }
+             function query() {
+               loading();
+               return "/solicitantes?search=" + $("#search").val();
+             }
+             $(function () {
+
+               $("#search").keyup(function () {
+                 delay(function () {
+                   $.getScript(query());
+                   return false;
+                 }, 500);
+               });
+
+             });
+</script>
