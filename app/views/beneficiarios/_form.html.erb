@@ -70,7 +70,8 @@
       </div>
       <div class="col-md-4">
         <%= f.simple_fields_for :historial do |p| %>
-        <%= p.input :parentesco %>
+        <%= p.label :parentesco %>
+        <%= p.select(:parentesco, options_for_select($dic["parentesco"]),{include_blank: 'Seleccione el parentesco...'},class: "form-control" )  %>
         <% end %>
       </div>
 

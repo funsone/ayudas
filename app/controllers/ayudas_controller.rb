@@ -1,4 +1,5 @@
 class AyudasController < ApplicationController
+  before_filter :authenticate_user!
   before_action :set_ayuda, only: [:show, :edit, :update, :destroy]
 
   # GET /ayudas
@@ -14,16 +15,19 @@ class AyudasController < ApplicationController
 
   # GET /ayudas/new
   def new
+    authorize! :new, Ayuda
     @ayuda = Ayuda.new
   end
 
   # GET /ayudas/1/edit
   def edit
+    authorize! :edit, Ayuda
   end
 
   # POST /ayudas
   # POST /ayudas.json
   def create
+    authorize! :create, Ayuda
     @ayuda = Ayuda.new(ayuda_params)
 
     respond_to do |format|
@@ -40,6 +44,7 @@ class AyudasController < ApplicationController
   # PATCH/PUT /ayudas/1
   # PATCH/PUT /ayudas/1.json
   def update
+    authorize! :update, Ayuda
     respond_to do |format|
       if @ayuda.update(ayuda_params)
         format.html { redirect_to ayudas_path, notice: 'Ayuda was successfully updated.' }
@@ -54,6 +59,7 @@ class AyudasController < ApplicationController
   # DELETE /ayudas/1
   # DELETE /ayudas/1.json
   def destroy
+    authorize! :destroy, Ayuda
     @ayuda.destroy
     respond_to do |format|
       format.html { redirect_to ayudas_url, notice: 'Ayuda was successfully destroyed.' }

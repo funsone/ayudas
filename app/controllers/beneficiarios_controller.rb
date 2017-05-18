@@ -1,4 +1,5 @@
 class BeneficiariosController < ApplicationController
+  before_filter :authenticate_user!
   before_action :set_beneficiario, only: [:show, :edit, :update, :destroy]
 
   # GET /beneficiarios
@@ -17,26 +18,28 @@ class BeneficiariosController < ApplicationController
 
   # GET /beneficiarios/new
   def new
+    authorize! :new,Beneficiario
     @solicitante= Solicitante.find(params[:solicitante_id])
     @beneficiario = @solicitante.beneficiarios.new
     respond_to do |format|
-      format.html
+      format.html 
       format.xml  { render :xml => @beneficiario }
     end
   end
 
   # GET /beneficiarios/1/edits
   def edit
+    authorize! :edit,Beneficiario
     @solicitante= Solicitante.find(params[:solicitante_id])
   end
 
   # POST /beneficiarios
   # POST /beneficiarios.json
   def create
+    authorize! :create,Beneficiario
     solicitante=Solicitante.find(params[:solicitante_id])
     @beneficiario = Beneficiario.create(beneficiario_params)
-    @beneficiario.historiales.build(parentesco: beneficiario_params[:historiales_attributes][:parentesco], solicitante_id: solicitante.id)
-
+    @beneficiario.historiales.build(parentesco: beneficiario_params[:parentesco], solicitante_id: solicitante.id)
     respond_to do |format|
       if @beneficiario.save
         format.html { redirect_to solicitante_beneficiario_path(solicitante, @beneficiario), notice: 'Beneficiario creado exitosamente.' }
@@ -51,6 +54,7 @@ class BeneficiariosController < ApplicationController
   # PATCH/PUT /beneficiarios/1
   # PATCH/PUT /beneficiarios/1.json
   def update
+    authorize! :update,Beneficiario
     @solicitante= Solicitante.find(params[:solicitante_id])
 
     respond_to do |format|
@@ -67,6 +71,7 @@ class BeneficiariosController < ApplicationController
   # DELETE /beneficiarios/1
   # DELETE /beneficiarios/1.json
   def destroy
+    authorize! :destroy,Beneficiario
     @beneficiario.destroy
     respond_to do |format|
       format.html { redirect_to beneficiarios_url, notice: 'Beneficiario was successfully destroyed.' }
@@ -82,6 +87,6 @@ class BeneficiariosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def beneficiario_params
-      params.require(:beneficiario).permit(:tipo_cedula, :cedula, :nombres, :apellidos, :sexo, :fecha_de_nacimiento, :oficio, :estado_civil, :tipo_de_casa, :num_habitaciones, :num_banos, :enseres, :obs_enseres, :discapacidad, :obs_discapacidad, historiales_attributes: [:parentesco])
+      params.require(:beneficiario).permit(:tipo_cedula, :cedula, :nombres, :apellidos, :sexo, :fecha_de_nacimiento, :oficio, :estado_civil, :tipo_de_casa, :num_habitaciones, :num_banos, :enseres, :obs_enseres, :discapacidad, :obs_discapacidad, :historiales_attributes => [:parentesco])
     end
 end

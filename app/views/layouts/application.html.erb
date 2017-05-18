@@ -63,11 +63,13 @@
                                 <i class="fa fa-home fa-fw fa-2x"></i>
                                 Inicio</a>
                         </li>
+                        <% if current_user.has_role?:admin %>
                         <li>
                             <a href="<%= departamentos_path%>">
                                 <i class="fa fa-building fa-fw fa-2x"></i>
                                 Departamentos</a>
                         </li>
+                        <%end%>
                         <li>
                             <a href="<%= ayudas_path%>">
                                 <i class="fa fa-heart fa-fw fa-2x"></i>

@@ -7,11 +7,31 @@ class Ability
     # user ||= User.new # guest user (not logged in)
     if user.has_role? :admin
        can :manage, :all
-    else
-       can :read, :all
+    elsif user.has_role? :discapacidad
+       alias_action :create, update: :cu
+       alias_action :new, :create, :edit, update: :ceu
+       can :manage, Solicitante
+       can :manage, Beneficiario
+       can :manage, Solicitud
+       cannot :cu, Departamento
+       cannot :cu, Ayuda
+    elsif user.has_role? :niños
+      can :manage, Solicitante
+      can :manage, Beneficiario
+      can :manage, Solicitud
+      cannot :cu, Departamento
+      cannot :cu, Ayuda
+    elsif user.has_role? :adulto
+      can :manage, Solicitante
+      can :manage, Beneficiario
+      can :manage, Solicitud
+      cannot :cu, Departamento
+      cannot :cu, Ayuda
+    elsif user.has_role? :admon
+      can :read, :all
     end
     #
-    # The first argument to `can` is the action you are giving the user
+    # The first argument to `can` is the action you are giving the users
     # permission to do.
     # If you pass :manage it will apply to every action. Other common actions
     # here are :read, :create, :update and :destroy.

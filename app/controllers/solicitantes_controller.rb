@@ -1,4 +1,5 @@
 class SolicitantesController < ApplicationController
+  before_filter :authenticate_user!
   before_action :set_solicitante, only: [:show, :edit, :update, :destroy]
 
   # GET /solicitantes
@@ -18,16 +19,19 @@ class SolicitantesController < ApplicationController
 
   # GET /solicitantes/new
   def new
+    authorize! :new, Solicitante
     @solicitante = Solicitante.new
   end
 
   # GET /solicitantes/1/edit
   def edit
+    authorize! :edit, Solicitante
   end
 
   # POST /solicitantes
   # POST /solicitantes.json
   def create
+    authorize! :create, Solicitante
     @solicitante = Solicitante.new(solicitante_params)
 
     respond_to do |format|
@@ -44,6 +48,7 @@ class SolicitantesController < ApplicationController
   # PATCH/PUT /solicitantes/1
   # PATCH/PUT /solicitantes/1.json
   def update
+    authorize! :update, Solicitante
     respond_to do |format|
       if @solicitante.update(solicitante_params)
         format.html { redirect_to @solicitante, notice: 'Solicitante actualizado exitosamente.' }
@@ -58,6 +63,7 @@ class SolicitantesController < ApplicationController
   # DELETE /solicitantes/1
   # DELETE /solicitantes/1.json
   def destroy
+    authorize! :destroy, Solicitante
     @solicitante.destroy
     respond_to do |format|
       format.html { redirect_to solicitantes_url, notice: 'Solicitante was successfully destroyed.' }

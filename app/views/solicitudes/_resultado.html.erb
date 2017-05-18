@@ -59,7 +59,9 @@
                           </p>
                         </td>
                         <td>
+                          <% if (current_user.has_role?:discapacidad and b.ayuda.departamento.nombre=="Discapacidad") or (current_user.has_role?:adulto and b.ayuda.departamento.nombre=="Adulto Mayor") or (current_user.has_role?:niños and b.ayuda.departamento.nombre=="Niños, niñas y adolescentes") or (current_user.has_role?:admin)%>
                           <%= link_to raw('<i class="fa fa-pencil"></i>'), edit_solicitante_beneficiario_solicitud_path(b.solicitante.id, beneficiario.id, b.id), class:"btn1 btn btn-info","data-toggle": "tooltip", "data-placement": "top", title: "Editar solicitante" %>
+                          <%end%>
                         </td>
 
                     <%end%>

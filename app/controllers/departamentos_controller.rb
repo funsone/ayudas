@@ -1,4 +1,5 @@
 class DepartamentosController < ApplicationController
+  before_filter :authenticate_user!
   before_action :set_departamento, only: [:show, :edit, :update, :destroy]
 
   # GET /departamentos
@@ -14,21 +15,24 @@ class DepartamentosController < ApplicationController
 
   # GET /departamentos/new
   def new
+    authorize! :new, Departamento
     @departamento = Departamento.new
   end
 
-  # GET /departamentos/1/edit
+  # GET /departamentos/1/edits
   def edit
+    authorize! :edit, Departamento
   end
 
   # POST /departamentos
   # POST /departamentos.json
   def create
+    authorize! :create, Departamento
     @departamento = Departamento.new(departamento_params)
 
     respond_to do |format|
       if @departamento.save
-        format.html { redirect_to departamentos_path, notice: 'Departamento was successfully created.' }
+        format.html { redirect_to departamentos_path, notice: 'Departamento creado exitosamente.' }
         format.json { render :show, status: :created, location: @departamento }
       else
         format.html { render :new }
@@ -40,9 +44,10 @@ class DepartamentosController < ApplicationController
   # PATCH/PUT /departamentos/1
   # PATCH/PUT /departamentos/1.json
   def update
+    authorize! :update, Departamento
     respond_to do |format|
       if @departamento.update(departamento_params)
-        format.html { redirect_to departamentos_path, notice: 'Departamento was successfully updated.' }
+        format.html { redirect_to departamentos_path, notice: 'Departamento actualizado exitosamente.' }
         format.json { render :show, status: :ok, location: @departamento }
       else
         format.html { render :edit }
@@ -54,9 +59,10 @@ class DepartamentosController < ApplicationController
   # DELETE /departamentos/1
   # DELETE /departamentos/1.json
   def destroy
+    authorize! :destroy, Departamento
     @departamento.destroy
     respond_to do |format|
-      format.html { redirect_to departamentos_url, notice: 'Departamento was successfully destroyed.' }
+      format.html { redirect_to departamentos_url, notice: 'Departamento eliminado.' }
       format.json { head :no_content }
     end
   end

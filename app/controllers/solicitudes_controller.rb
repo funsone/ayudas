@@ -1,4 +1,5 @@
 class SolicitudesController < ApplicationController
+  before_filter :authenticate_user!
   before_action :set_solicitud, only: [:show, :edit, :update, :destroy]
 
   # GET /solicitudes
@@ -20,6 +21,7 @@ class SolicitudesController < ApplicationController
 
   # GET /solicitudes/new
   def new
+    authorize! :new, Solicitud
     @solicitante=Solicitante.find(params[:solicitante_id])
     @beneficiario=Beneficiario.find(params[:beneficiario_id])
     @solicitud = Solicitud.new
@@ -27,11 +29,13 @@ class SolicitudesController < ApplicationController
 
   # GET /solicitudes/1/edit
   def edit
+    authorize! :edit, Solicitud
   end
 
   # POST /solicitudes
   # POST /solicitudes.json
   def create
+    authorize! :create, Solicitud
     @solicitante=Solicitante.find(params[:solicitante_id])
     @beneficiario=Beneficiario.find(params[:beneficiario_id])
     @solicitud = Solicitud.create(solicitud_params)
@@ -52,6 +56,7 @@ class SolicitudesController < ApplicationController
   # PATCH/PUT /solicitudes/1
   # PATCH/PUT /solicitudes/1.json
   def update
+    authorize! :update, Solicitud
     respond_to do |format|
       if @solicitud.update(solicitud_params)
         format.html { redirect_to solicitudes_path, notice: 'Solicitud was successfully updated.' }
@@ -66,6 +71,7 @@ class SolicitudesController < ApplicationController
   # DELETE /solicitudes/1
   # DELETE /solicitudes/1.json
   def destroy
+    authorize! :destroy, Solicitud
     @solicitud.destroy
     respond_to do |format|
       format.html { redirect_to solicitudes_url, notice: 'Solicitud was successfully destroyed.' }

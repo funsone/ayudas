@@ -1,9 +1,11 @@
 <div class="col-md-12 page-header">
+  <% if current_user.has_role?:admin %>
   <div class="pull-right">
 
     <%= link_to raw('<i class="fa fa-plus"></i> Nueva Ayuda'), new_ayuda_path,class:"btn btn-default" %>
   </div>
-  <h1><i class="fa fa-heart-o" style="font-size:50px;"></i> Ayudas</h1>
+  <%end%>
+  <h1><i class="fa fa-heart" style="font-size:50px;"></i> Ayudas</h1>
 </div>
 
 <ul class="list-group">
@@ -16,7 +18,9 @@
     <tr>
       <th class="text-center">Nombre</th>
       <th class="text-center">Departamento</th>
+      <% if current_user.has_role?:admin %>
       <th class="text-center">Acciones</th>
+      <%end%>
     </tr>
   </thead>
 
@@ -25,7 +29,9 @@
       <tr>
         <td class="text-capitalize"><%= ayuda.nombre %></td>
         <td class="text-capitalize"><%= ayuda.departamento.nombre %></td>
+        <% if current_user.has_role?:admin %>
         <td><%= link_to raw('<i class="fa fa-pencil"></i>'), edit_ayuda_path(ayuda),class:"btn1 btn btn-info","data-toggle": "tooltip", "data-placement": "top", title: "Editar elemento" %>
+        <%end%>
       </tr>
     <% end %>
   </tbody>
