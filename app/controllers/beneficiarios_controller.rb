@@ -22,7 +22,7 @@ class BeneficiariosController < ApplicationController
     @solicitante= Solicitante.find(params[:solicitante_id])
     @beneficiario = @solicitante.beneficiarios.new
     respond_to do |format|
-      format.html 
+      format.html
       format.xml  { render :xml => @beneficiario }
     end
   end

@@ -5,7 +5,7 @@ class Beneficiario < ApplicationRecord
 
   accepts_nested_attributes_for :historiales
 
-  validates :cedula, :nombres, :apellidos, :tipo_cedula, :sexo, :fecha_de_nacimiento, :oficio, :estado_civil, :tipo_de_casa, :num_habitaciones, :num_banos, :enseres, :discapacidad, presence: true, :allow_blank => false
+  validates :cedula, :nombres, :apellidos, :tipo_cedula, :sexo, :fecha_de_nacimiento, :oficio, :estado_civil, :tipo_de_casa, :num_habitaciones, :num_banos, presence: true, :allow_blank => false
   validates :cedula, uniqueness: { case_sensitive: false, message: 'Ya se encuentra registrada' }, numericality: { only_integer: true }
 
   def self.search(search)

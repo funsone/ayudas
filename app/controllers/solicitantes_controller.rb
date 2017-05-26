@@ -21,6 +21,7 @@ class SolicitantesController < ApplicationController
   def new
     authorize! :new, Solicitante
     @solicitante = Solicitante.new
+
   end
 
   # GET /solicitantes/1/edit

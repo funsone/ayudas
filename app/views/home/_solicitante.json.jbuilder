@@ -1,0 +1,2 @@
+json.extract! solicitante, :id, :cedula, :tipo_cedula, :nombres, :apellidos, :sexo, :fecha_de_nacimiento, :lugar_de_nacimiento, :direccion, :municipios, :grado_de_instruccion, :obs_instruccion, :oficio, :ingreso_mensual, :obs_ingreso, :empresa, :carga_familiar, :telefono_fijo, :telefono_movil, :estado_civil, :correo, :created_at, :updated_at
+json.url solicitante_url(solicitante, format: :json)

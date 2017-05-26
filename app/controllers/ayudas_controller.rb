@@ -32,7 +32,7 @@ class AyudasController < ApplicationController
 
     respond_to do |format|
       if @ayuda.save
-        format.html { redirect_to ayudas_path, notice: 'Ayuda was successfully created.' }
+        format.html { redirect_to ayudas_path, notice: 'Ayuda creada exitosamente.' }
         format.json { render :show, status: :created, location: @ayuda }
       else
         format.html { render :new }
@@ -47,7 +47,7 @@ class AyudasController < ApplicationController
     authorize! :update, Ayuda
     respond_to do |format|
       if @ayuda.update(ayuda_params)
-        format.html { redirect_to ayudas_path, notice: 'Ayuda was successfully updated.' }
+        format.html { redirect_to ayudas_path, notice: 'Ayuda actualizada exitosamente.' }
         format.json { render :show, status: :ok, location: @ayuda }
       else
         format.html { render :edit }
@@ -62,7 +62,7 @@ class AyudasController < ApplicationController
     authorize! :destroy, Ayuda
     @ayuda.destroy
     respond_to do |format|
-      format.html { redirect_to ayudas_url, notice: 'Ayuda was successfully destroyed.' }
+      format.html { redirect_to ayudas_url, notice: 'Ayuda eliminada exitosamente.' }
       format.json { head :no_content }
     end
   end
