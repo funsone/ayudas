@@ -12,7 +12,6 @@ if p.length>0%>
                 <th class="text-center">Teléfono Fijo</th>
                 <th class="text-center">Teléfono Movil</th>
                 <th class="text-center">Dirección</th>
-                <th class="text-center">Nº de Beneficiarios</th>
                 <th class="text-center">Beneficiarios</th>
                 <th class="text-center">Acciones</th>
             </tr>
@@ -26,11 +25,11 @@ if p.length>0%>
                 <td class="text-center"><%= solicitante.telefono_fijo %></td>
                 <td class="text-center"><%= solicitante.telefono_movil %></td>
                 <td class="text-capitalize"><%= solicitante.direccion.downcase%></td>
-                <td class="text-center"><%= solicitante.beneficiarios.length %></td>
                 <td class="text-center">
-                    <div class="btn-group btn-group-xs form-inline" role="group" aria-label="...">
-                        <%= link_to raw('<i class="fa fa-plus"></i>'), new_solicitante_beneficiario_path(solicitante),class:"btn btn-default" %>
-                        <%= link_to raw('<i class="fa fa-eye"></i>'), solicitante_path(solicitante),class:"btn btn-success","data-toggle": "tooltip", "data-placement": "top", title: "Ver beneficiarios" %></div>
+                  <%= solicitante.beneficiarios.length %>
+                  <div class="btn-group btn-group-xs form-inline" role="group" aria-label="...">
+                      <%= link_to raw('<i class="fa fa-plus"></i>'), new_solicitante_beneficiario_path(solicitante),class:"btn btn-default" %>
+                  </div>
                 </td>
                 <td class="text-center">
                     <div class="btn-group btn-group-xs form-inline" role="group" aria-label="...">
