@@ -30,7 +30,7 @@
     </thead>
 
     <tbody>
-      <% @solicitantes.each do |solicitante| %>
+      <% @solicitantes_index.each do |solicitante| %>
         <tr>
           <td><%= $dic["tipo_de_cedula"].key(solicitante.tipo_cedula).to_s + "-" + solicitante.cedula.to_s %></td>
           <td><%= solicitante.nombres.capitalize %></td>

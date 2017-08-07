@@ -1,2 +1,5 @@
 $('.resultado').html("<%= escape_javascript(render "resultado", p: @solicitantes)%>");
 $("#search_icon").attr("class","fa fa-search")
+
+$('.resultado2').html("<%= escape_javascript(render "resultado2", r: @beneficiarios)%>");
+$("#search_icon").attr("class","fa fa-search")

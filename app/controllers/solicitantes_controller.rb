@@ -7,14 +7,23 @@ class SolicitantesController < ApplicationController
   def index
     if  !params[:search].nil?
     s = params[:search]
+      @beneficiarios_b = Beneficiario.search s
       @solicitantes_b = Solicitante.search s
     end
     @solicitantes = Solicitante.all.paginate(:per_page => 10, :page => params[:page]).order('created_at DESC')
+    @beneficiarios = Beneficiario.all.paginate(:per_page => 10, :page => params[:page]).order('created_at DESC')
+    @solicitantes_index = Solicitante.all.paginate(:per_page => 10, :page => params[:page]).order('created_at DESC')
   end
 
   # GET /solicitantes/1
   # GET /solicitantes/1.json
   def show
+    if  !params[:search].nil?
+    s = params[:search]
+    @beneficiarios_b = Beneficiario.search s
+
+    end
+    @beneficiarios = Beneficiario.all.paginate(:per_page => 10, :page => params[:page]).order('created_at DESC')
   end
 
   # GET /solicitantes/new

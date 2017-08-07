@@ -14,26 +14,26 @@
           <%= f.label :cedula, class: "control-label"%>
           <div class="input-group form-inline">
             <span class="input-group-btn">
-              <%= f.select(:tipo_cedula , options_for_select($dic["tipo_de_cedula"],@beneficiario.tipo_cedula),{include_blank: ''}, class: "dropdown-toggle form-control", style: "padding:7px 12px;width:60px" ) %>
+              <%= f.select(:tipo_cedula , options_for_select($dic["tipo_de_cedula"],@beneficiario.tipo_cedula),{include_blank: ''}, class: "dropdown-toggle form-control", style: "padding:7px 12px;width:60px", id: "tipo_cedula" ) %>
 
             </span>
-              <%= f.input_field :cedula, label: false, class:"form-control" %>
+              <%= f.input_field :cedula, id: "cedula", class:"form-control"%>
           </div>
         </div>
       </div>
 
       <div class="col-md-4 <%='has-error' if @beneficiario.errors.keys.include?(:nombres) ==true %> <%='has-success' if (@beneficiario.errors.keys.include?(:nombres) ==false and @beneficiario.errors.any?)%>">
-        <%= f.input :nombres %>
+        <%= f.input :nombres, :input_html => { :id => "nombre" } %>
       </div>
       <div class="col-md-4 <%='has-error' if @beneficiario.errors.keys.include?(:apellidos) ==true %> <%='has-success' if (@beneficiario.errors.keys.include?(:apellidos) ==false and @beneficiario.errors.any?)%>">
-        <%= f.input :apellidos %>
+        <%= f.input :apellidos, :input_html => { :id => "apellido" } %>
       </div>
       <div class="col-md-4 <%='has-error' if @beneficiario.errors.keys.include?(:sexo) ==true %> <%='has-success' if (@beneficiario.errors.keys.include?(:sexo) ==false and @beneficiario.errors.any?)%>">
         <%= f.label :sexo %>
-        <%= f.select(:sexo , options_for_select($dic["sexo"],@beneficiario.sexo),{include_blank: 'Seleccione un sexo...'},class: "form-control" )  %>
+        <%= f.select(:sexo , options_for_select($dic["sexo"],@beneficiario.sexo),{include_blank: 'Seleccione un sexo...'},class: "form-control", id: "sexo" )  %>
       </div>
       <div class="col-md-2 <%='has-error' if @beneficiario.errors.keys.include?(:fecha_de_nacimiento) ==true %> <%='has-success' if (@beneficiario.errors.keys.include?(:fecha_de_nacimiento) ==false and @beneficiario.errors.any?)%>">
-        <%= f.input :fecha_de_nacimiento, as: :date, html5: true %>
+        <%= f.input :fecha_de_nacimiento, as: :date, html5: true, :input_html => { :id => "fecha" } %>
       </div>
       <div class="col-md-2">
         <%= f.label :oficio %>
@@ -84,3 +84,48 @@
 <%= render 'layouts/botones', :f=>f, path: solicitante_beneficiario_path(@solicitante)%>
 <%end%>
   <% end %>
+
+  <script>
+  function getParameterByName( name ) //courtesy Artem
+  {
+      name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+      var regexS = "[\\?&]"+name+"=([^&#]*)";
+      var regex = new RegExp( regexS );
+      var results = regex.exec( window.location.href );
+      if( results == null )
+        return "";
+      else
+      {
+        if ((results[1].indexOf('?'))>0)
+          return decodeURIComponent(results[1].substring(0,results[1].indexOf('?')).replace(/\+/g, " "));
+        else
+          return decodeURIComponent(results[1].replace(/\+/g, " "));
+      }
+  }
+
+      var t = getParameterByName('T');
+      var c = getParameterByName('C');
+      var n = getParameterByName('N');
+      var a = getParameterByName('A');
+      var s = getParameterByName('S');
+      var f = getParameterByName('F');
+
+      document.getElementById("tipo_cedula").value = t;
+      document.getElementById("tipo_cedula").disabled = false;
+
+      document.getElementById("cedula").value = c;
+      document.getElementById("cedula").disabled = false;
+
+      document.getElementById("nombre").value = n;
+      document.getElementById("nombre").disabled = false;
+
+      document.getElementById("apellido").value = a;
+      document.getElementById("apellido").disabled = false;
+
+      document.getElementById("sexo").value = s;
+      document.getElementById("sexo").disabled = false;
+
+      document.getElementById("fecha").value = f;
+      document.getElementById("fecha").disabled = false;
+
+  </script>

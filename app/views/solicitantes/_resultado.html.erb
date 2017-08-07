@@ -9,10 +9,6 @@ if p.length>0%>
             <tr>
                 <th class="text-center">Cédula</th>
                 <th class="text-center">Nombre Completo</th>
-                <th class="text-center">Teléfono Fijo</th>
-                <th class="text-center">Teléfono Movil</th>
-                <th class="text-center">Dirección</th>
-                <th class="text-center">Beneficiarios</th>
                 <th class="text-center">Acciones</th>
             </tr>
         </thead>
@@ -22,15 +18,6 @@ if p.length>0%>
             <tr class="text-center">
                 <td><%= $dic["tipo_de_cedula"].key(solicitante.tipo_cedula).to_s + "-" + solicitante.cedula.to_s %></td>
                 <td class="text-capitalize text-center"><%= solicitante.nombres.downcase + " " +solicitante.apellidos.downcase %></td>
-                <td class="text-center"><%= solicitante.telefono_fijo %></td>
-                <td class="text-center"><%= solicitante.telefono_movil %></td>
-                <td class="text-capitalize"><%= solicitante.direccion.downcase%></td>
-                <td class="text-center">
-                  <%= solicitante.beneficiarios.length %>
-                  <div class="btn-group btn-group-xs form-inline" role="group" aria-label="...">
-                      <%= link_to raw('<i class="fa fa-plus"></i>'), new_solicitante_beneficiario_path(solicitante),class:"btn btn-default" %>
-                  </div>
-                </td>
                 <td class="text-center">
                     <div class="btn-group btn-group-xs form-inline" role="group" aria-label="...">
                         <%= link_to raw('<i class="fa fa-eye"></i>'), solicitante,class:"btn btn-success","data-toggle": "tooltip", "data-placement": "top", title: "Ver solicitante" %>
