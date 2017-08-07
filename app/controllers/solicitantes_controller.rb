@@ -21,8 +21,8 @@ class SolicitantesController < ApplicationController
     if  !params[:search].nil?
     s = params[:search]
     @beneficiarios_b = Beneficiario.search s
-
     end
+    @solicitantes_i = params[:solicitante_id]
     @beneficiarios = Beneficiario.all.paginate(:per_page => 10, :page => params[:page]).order('created_at DESC')
   end
 

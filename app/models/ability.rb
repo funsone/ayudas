@@ -15,7 +15,7 @@ class Ability
        can :manage, Solicitud
        cannot :cu, Departamento
        cannot :cu, Ayuda
-    elsif user.has_role? :niños
+    elsif user.has_role? :ninos
       can :manage, Solicitante
       can :manage, Beneficiario
       can :manage, Solicitud
