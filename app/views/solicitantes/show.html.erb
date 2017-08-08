@@ -14,7 +14,7 @@
     </ul>
   </div>
 
-      <!-- Modal -->
+    <!-- Modal -->
     <div class="modal fade" id="myModal" style="margin-top:150px;" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -75,7 +75,7 @@
           </div>
               <div class="modal-footer">
                 <div class="btn-group btn-group-md form-inline" role="group" aria-label="...">
-                    <button type="button" class="btn btn-primary" id="generar_boton" name="button">Enviar</button>
+                    <button type="button" class="btn btn-primary" id="generar_boton" name="button">Agregar</button>
                 </div>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
               </div>
@@ -239,12 +239,15 @@
          <tbody>
            <%@solicitante.beneficiarios.each do |beneficiario|%>
            <tr>
+             <%if beneficiario.cedula == @solicitante.cedula%>
+             <%else%>
              <td><%="#{$dic['tipo_de_cedula'].key(beneficiario.tipo_cedula)}-#{beneficiario.cedula}"%></td>
              <td class="text-capitalize"><%="#{beneficiario.nombres} #{beneficiario.apellidos}"%></td>
              <td><%=beneficiario.fecha_de_nacimiento.strftime("%d-%m-%Y")%></td>
              <td><%=$dic["sexo"].key(beneficiario.sexo.to_i)%></td>
              <td><%= link_to raw('<i class="fa fa-eye"></i>'), solicitante_beneficiario_path(@solicitante, beneficiario),class:"btn1 btn btn-success" %></td>
            </tr>
+           <%end%>
            <%end%>
          </tbody>
 
@@ -265,6 +268,48 @@
    </ul>
    </div>
    <%end%>
+
+<!-- Solicitudes -->
+<% if @solicitante.beneficiarios.length>0 %>
+<div class="col-md-6">
+<ul class="list-group">
+  <li class="list-group-item text-muted" contenteditable="false"><i class="fa fa-users"></i>Mis Solicitudes</li>
+  <li class="list-group-item">
+    <table class="table table-hover table-condensed text-center">
+      <thead>
+      </thead>
+
+      <tbody>
+        <%@solicitante.beneficiarios.each do |beneficiario|%>
+        <tr>
+          <%if beneficiario.cedula != @solicitante.cedula%>
+
+          <%else%>
+            <td class="text-capitalize"><%="Ver Mis Solicitudes"%></td>
+            <td><%= link_to raw('<i class="fa fa-eye"></i>'), solicitante_beneficiario_path(@solicitante, beneficiario),class:"btn1 btn btn-success" %></td>
+        </tr>
+        <%end%>
+        <%end%>
+      </tbody>
+
+    </table>
+  </li>
+</ul>
+</div>
+<%else%>
+<div class="text-center col-md-6">
+<ul class="list-group">
+  <li class="list-group-item text-muted text-left" contenteditable="false">
+    <i class="fa fa-comment-o"></i>
+    Mensaje</li>
+  <li class="list-group-item"></br>
+  <i class="fa fa-paper-plane fa-4x" style="color:#24A5FF;"></i>
+  <h2>El solicitante no tiene solicitudes.</h2>
+</li>
+</ul>
+</div>
+<%end%>
+
 </div>
 
 <script type="text/javascript">

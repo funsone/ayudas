@@ -9,7 +9,7 @@
   <div class="col-md-12">
     <ul class="nav nav-pills nav-justified">
       <li role="presentation"><%=link_to raw('<i class="fa fa-arrow-circle-left"></i> Regresar'), solicitante_path(@solicitante)%></li>
-      <li role="presentation"><%=link_to raw('<i class="fa fa-pencil"></i> Editar'), edit_solicitante_beneficiario_path(@solicitante, @beneficiario)%></li>
+      <li role="presentation" id="edit"><%=link_to raw('<i class="fa fa-pencil"></i> Editar'), edit_solicitante_beneficiario_path(@solicitante, @beneficiario)%></li>
       <li role="presentation"><%=link_to raw('<i class="fa fa-plus"></i> Nueva solicitud'), new_solicitante_beneficiario_solicitud_path(@solicitante, @beneficiario)%></li>
     </ul>
   </div>
@@ -159,3 +159,18 @@
 </div>
 <%end%>
 </div>
+
+<script type="text/javascript">
+$('#edit').click(function () {
+  var t = "<%= @beneficiario.tipo_cedula %>";
+  var c = "<%= @beneficiario.cedula %>";
+  var n = "<%= @beneficiario.nombres %>";
+  var a = "<%= @beneficiario.apellidos %>";
+  var s = "<%= @beneficiario.sexo %>";
+  var f = "<%= @beneficiario.fecha_de_nacimiento %>";
+
+   location.href ="http://localhost:3000/solicitantes/" + "<%= solicitante.id %>" + "/beneficiarios/"+"<%=@beneficiario.id%>"+"/edit?T="+t+"&C="+c+"&N="+n+"&A="+a+"&S="+s+"&F="+f+"";
+
+});
+
+</script>

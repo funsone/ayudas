@@ -74,7 +74,12 @@ class ApplicationController < ActionController::Base
   'Constructor' => 0,
   'Chofer' => 1,
   'Ama de casa' => 2,
-  'Estudiante' => 3],
+  'Estudiante' => 3,
+  'Abogado' => 4,
+  'Arquitecto' => 5,
+  'Comerciante' => 6,
+  'Policia' => 7],
+
 
   'condicion' => Hash[
     'SI' => true,

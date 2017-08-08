@@ -56,16 +56,13 @@ class BeneficiariosController < ApplicationController
   def update
     authorize! :update,Beneficiario
     @solicitante= Solicitante.find(params[:solicitante_id])
+    @beneficiario = Beneficiario.update(beneficiario_params)
 
-    respond_to do |format|
-      if @beneficiario.update(beneficiario_params)
-        format.html { redirect_to solicitante_beneficiario_path(@solicitante, @beneficiario), notice: 'Beneficiario actualizado exitosamente.' }
-        format.json { render :show, status: :ok, location: solicitante_beneficiario_path(@solicitante, @beneficiario) }
-      else
-        format.html { render :edit }
-        format.json { render json: @beneficiario.errors, status: :unprocessable_entity }
-      end
-    end
+        respond_to do |format|
+            format.html { redirect_to solicitante_beneficiario_path(@solicitante, params[:id]), notice: 'Beneficiario actualizado exitosamente.' }
+            format.json { render :show, status: :ok, location: solicitante_beneficiario_path(@solicitante, @beneficiario) }
+
+        end
   end
 
   # DELETE /beneficiarios/1

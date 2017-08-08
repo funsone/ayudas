@@ -64,7 +64,8 @@
         <%= f.input :telefono_movil %>
       </div>
       <div class="col-md-4 <%='has-error' if @solicitante.errors.keys.include?(:oficio) ==true %> <%='has-success' if (@solicitante.errors.keys.include?(:oficio) ==false and @solicitante.errors.any?)%>">
-        <%= f.input :oficio %>
+        <%= f.label :oficio %>
+        <%= f.select(:oficio , options_for_select($dic["oficio"],@solicitante.oficio),{include_blank: 'Seleccione un oficio...'},class: "form-control" )  %>
       </div>
       <div class="col-md-4">
         <%= f.input :empresa %>
