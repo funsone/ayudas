@@ -59,7 +59,7 @@ class SolicitudesController < ApplicationController
     authorize! :update, Solicitud
     respond_to do |format|
       if @solicitud.update(solicitud_params)
-        format.html { redirect_to solicitudes_path, notice: 'Solicitud was successfully updated.' }
+        format.html { redirect_to solicitudes_path, notice: 'Solicitud actualizada exitosamente.' }
         format.json { render :show, status: :ok, location: solicitudes_path }
       else
         format.html { render :edit }

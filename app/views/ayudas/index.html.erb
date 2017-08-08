@@ -1,5 +1,5 @@
 <div class="col-md-12 page-header">
-  <% if current_user.has_role?:admin %>
+  <% if current_user.has_role? :admin %>
   <div class="pull-right">
 
     <%= link_to raw('<i class="fa fa-plus"></i> Nueva Ayuda'), new_ayuda_path,class:"btn btn-default" %>
@@ -18,22 +18,45 @@
     <tr>
       <th class="text-center">Nombre</th>
       <th class="text-center">Departamento</th>
-      <% if current_user.has_role?:admin %>
+      <% if current_user.has_role? :admin %>
       <th class="text-center">Acciones</th>
       <%end%>
     </tr>
   </thead>
 
   <tbody>
-    <% @ayudas.each do |ayuda| %>
+    <% if current_user.has_role? :discapacidad %>
+      <%dep=1%>
+    <% elsif current_user.has_role? :adultos %>
+      <%dep=2%>
+    <% elsif current_user.has_role? :ninos %>
+      <%dep=3%>
+    <%end%>
+
+    <% if current_user.has_role? :admin or current_user.has_role? :admon %>
+      <% @ayudas.each do |ayuda| %>
       <tr>
         <td class="text-capitalize"><%= ayuda.nombre %></td>
         <td class="text-capitalize"><%= ayuda.departamento.nombre %></td>
         <% if current_user.has_role?:admin %>
         <td><%= link_to raw('<i class="fa fa-pencil"></i>'), edit_ayuda_path(ayuda),class:"btn1 btn btn-info","data-toggle": "tooltip", "data-placement": "top", title: "Editar elemento" %>
         <%end%>
+      <%end%>
       </tr>
-    <% end %>
+    <%end%>
+
+    <%if !current_user.has_role? :admin%>
+      <% @ayudas.where(departamento_id: dep).each do |ayuda| %>
+      <tr>
+        <td class="text-capitalize"><%= ayuda.nombre %></td>
+        <td class="text-capitalize"><%= ayuda.departamento.nombre %></td>
+        <% if current_user.has_role?:admin %>
+          <td><%= link_to raw('<i class="fa fa-pencil"></i>'), edit_ayuda_path(ayuda),class:"btn1 btn btn-info","data-toggle": "tooltip", "data-placement": "top", title: "Editar elemento" %>
+        <%end%>
+      <%end%>
+      </tr>
+    <%end%>
+
   </tbody>
 </table>
 
