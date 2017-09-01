@@ -86,6 +86,9 @@
                                 Solicitudes</a>
                         </li>
                         <li>
+                          <a data-toggle="modal" data-target="#myModal"><i class="fa fa-file-pdf-o fa-fw fa-2x"></i>  Reportes</a>
+                        </li>
+                        <li>
                             <small>Coordinación de Informática y sistemas (2017)</small>
                         </li>
 
@@ -120,5 +123,170 @@
         </div>
     </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" style="margin-top:60px; margin-left:100px;" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">
+          <i class="fa fa-file-pdf-o fa-2x"></i>
+          Generador de Reportes</h4>
+      </div>
+      <div class="modal-body">
+        <div class="col-xs-12 form-group" style="float:none">
+
+        <div class="form-group input-group">
+          <!--Inicio del contenido del modal -->
+          <div class="col-xs-12 form-group">
+            <%= label_tag "Fecha Inicio".capitalize %>
+            <div class="form-group input-group">
+              <span class="input-group-addon">
+                <span class="fa fa-calendar fa-fw"></span>
+              </span>
+              <input class="form-control" type="date" id="fecha_i">
+            </div>
+          </div>
+
+          <div class="col-xs-12 form-group">
+            <%= label_tag "Fecha Fin".capitalize %>
+            <div class="form-group input-group">
+              <span class="input-group-addon">
+                <span class="fa fa-calendar fa-fw"></span>
+              </span>
+              <input class="form-control" type="date" id="fecha_f">
+            </div>
+          </div>
+
+          <div class="col-xs-12 form-group">
+              <%= label_tag "Departamento" %>
+              <div class="form-group input-group">
+                <span class="input-group-addon">
+                  <span class="fa fa-building fa-fw"></span>
+                </span>
+                <%= select_tag("Departamento",options_for_select(Departamento.all.map{|d|[d.nombre.capitalize, d.id]}.prepend([t('Ninguno'), 0])),{include_blank:'Todos',class: "form-control" }) %>
+              </div>
+          </div>
+
+          <div class="col-xs-12 form-group">
+              <%= label_tag "Ayuda" %>
+              <div class="form-group input-group">
+                <span class="input-group-addon">
+                  <span class="fa fa-heart fa-fw"></span>
+                </span>
+                <%= select_tag("Ayuda",options_for_select(Ayuda.all.map{|d|["#{d.nombre.capitalize} - #{d.departamento.nombre}", d.id]}.prepend([t('Ninguna'), 0])),{include_blank:'Todas',class: "form-control" }) %>
+              </div>
+          </div>
+
+          <div class="col-xs-12 form-group">
+              <%= label_tag "Ayuda" %>
+              <div class="form-group input-group">
+                <span class="input-group-addon">
+                  <span class="fa fa-check fa-fw"></span>
+                </span>
+                <%= select_tag("Estado",options_for_select($dic["status"]),{include_blank:'Seleccione el estado ...',class: "form-control" }) %>
+              </div>
+          </div>
+          <input type="hidden" id="filtro" value="">
+
+          <!--Fin del contenido del modal -->
+        </div>
+      </div>
+      </div>
+          <div class="modal-footer">
+            <div class="btn-group btn-group-md form-inline" role="group" aria-label="...">
+                <button type="button" class="btn btn-primary" id="generar_boton" name="button">Generar</button>
+            </div>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+          </div>
+    </div>
+  </div>
+</div>
+<!-- Fin Modal -->
   </body>
 </html>
+
+
+<script type="text/javascript">
+
+function s(x,y) {
+$('#enviar').modal({
+  show: true, backdrop:false
+});
+  $("#progreso").html("progreso: " + x + "/" + $('.persona'+$("#filtro").attr("value")).length)
+  $.ajax({
+    statusCode: {
+    500: function() {
+      $("#progreso").html("¡Error interno!");
+      $("#progreso_icon").attr("class","fa fa-ban fa-5x");
+    }
+  },
+    method: "POST",
+    url: "/personas/" + $('.persona'+$("#filtro").attr("value"))[x].value + "/enviar?ahora="+y
+  }).done(function () {
+    x = x + 1
+    if (x < $('.persona'+$("#filtro").attr("value")).length) {
+      s(x,y);
+    } else {
+      $("#progreso").html("¡Todos los recibos han sido enviados!");
+      $("#progreso_icon").attr("class","fa fa-check fa-5x");
+    }
+  });
+}
+
+
+function generar(eco) {
+
+  if ($('#Tipo').val() == '') {
+    alert('Seleccione una opcion en el campo nómina.');
+    return;
+  }
+  if ($('#tipo_de_reporte').val() == '') {
+    alert('Seleccione una opcion en el campo tipo de reporte.');
+    return;
+  }
+  if ($('#Concepto').val() === "0" && $('#Conceptopersonal').val() === "0") {
+    alert('Seleccione al menos una clase de concepto.');
+    return;
+  }
+  var concepto = "&c=" + $('#Concepto').val();
+
+  var conceptopersonal = "&cp=" + $('#Conceptopersonal').val();
+
+  var params = '?doc=' + (parseInt($('#tipo_de_reporte').val()) + eco) + conceptopersonal + concepto + '&ahora=' + $('#quincena').val();
+  var win = window.open('<%=solicitudes_path%>/' + $('#Tipo').val() + '.pdf' + params, '_blank');
+  if (win) {
+    //Browser has allowed it to be opened
+    win.focus();
+  } else {
+    //Broswer has blocked it
+    alert('Please allow popups for this site');
+  }
+}
+
+$(function () {
+
+  $('[data-toggle="tooltip"]').tooltip();
+  $('#generar_boton').click(function () {
+    generar(0);
+  });
+  $('#generar_boton_eco').click(function () {
+    generar(1);
+  });
+  $('.enviar_recibos_pasada').click(function () {
+
+$('#filtro').attr("value", $(this).attr("value"));
+$("#progreso_icon").attr("class","fa fa-refresh fa-spin fa-5x fa-fw margin-bottom");
+    s(0,"<%= Time.now%>");
+  });
+  $('.enviar_recibos').click(function () {
+    $('#filtro').attr("value", $(this).attr("value"));
+
+$("#progreso_icon").attr("class","fa fa-refresh fa-spin fa-5x fa-fw margin-bottom");
+
+  });
+});
+</script>
